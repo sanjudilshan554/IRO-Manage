@@ -1,5 +1,5 @@
 <template>
-  <AdminLayout>
+  <AppLayout>
     <template #content>
       <div class="row">
         <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4" v-for="card in cards" :key="card.title">
@@ -18,11 +18,11 @@
     <template #modals>
       <ConfirmModal :title="confirmModal.title" :content="confirmModal.content" />
     </template>
-  </AdminLayout>
+  </AppLayout>
 </template>
 
 <script setup>
-import AdminLayout from '@/layouts/AdminLayout.vue'
+import AppLayout from '@/layouts/AppLayout.vue'
 import DashboardPrimaryCard from '@/components/cards/DashboardPrimaryCard.vue'
 import ConfirmModal from '@/components/common/modals/ConfirmModal.vue'
 
