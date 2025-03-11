@@ -28,11 +28,12 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__ . '/auth.php';
 
-Route::prefix('/company')->group(function () {
-    Route::get('/', [BusinessController::class, 'index'])->name('company.index');
-    Route::post('/store', [BusinessController::class, 'store'])->name('company.store');
+Route::prefix('/business')->group(function () {
+    Route::get('/', [BusinessController::class, 'index'])->name('business.index');
+    Route::post('/store', [BusinessController::class, 'store'])->name('business.store');
 });
 
 Route::prefix('/dashboard')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 });
+

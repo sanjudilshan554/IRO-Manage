@@ -24,98 +24,128 @@
                             <div class="card-body">
                                 <div>
                                     <div class="container mt-4">
-                                        <form>
+                                        <form @submit.prevent="submitBusinessProfileForm">
                                             <div class="row">
                                                 <div class="col-md-6 mb-3">
                                                     <label class="form-label">Name</label>
-                                                    <input type="text" class="form-control" name="name">
+                                                    <input type="text" class="form-control"
+                                                        v-model="businessForm.name" />
                                                 </div>
+
                                                 <div class="col-md-6 mb-3">
                                                     <label class="form-label">Company Code</label>
-                                                    <input type="text" class="form-control" name="company_code">
+                                                    <input type="text" class="form-control"
+                                                        v-model="businessForm.company_code" />
                                                 </div>
+
                                                 <div class="col-md-6 mb-3">
                                                     <label class="form-label">SLBFE Reg Code</label>
-                                                    <input type="text" class="form-control" name="slbfe_reg_code">
+                                                    <input type="text" class="form-control"
+                                                        v-model="businessForm.slbfe_reg_code" />
                                                 </div>
+
                                                 <div class="col-md-6 mb-3">
                                                     <label class="form-label">Address</label>
-                                                    <input type="text" class="form-control" name="address">
+                                                    <input type="text" class="form-control"
+                                                        v-model="businessForm.address" />
                                                 </div>
+
                                                 <div class="col-md-6 mb-3">
                                                     <label class="form-label">Postal Code</label>
-                                                    <input type="text" class="form-control" name="postal_code">
+                                                    <input type="text" class="form-control"
+                                                        v-model="businessForm.postal_code" />
                                                 </div>
+
                                                 <div class="col-md-6 mb-3">
                                                     <label class="form-label">City</label>
-                                                    <input type="text" class="form-control" name="city">
+                                                    <input type="text" class="form-control"
+                                                        v-model="businessForm.city" />
                                                 </div>
+
                                                 <div class="col-md-6 mb-3">
                                                     <label class="form-label">Dispatch Countries</label>
-                                                    <input type="text" class="form-control" name="dispatch_countries">
+                                                    <input type="text" class="form-control"
+                                                        v-model="businessForm.dispatch_countries" />
                                                 </div>
+
                                                 <div class="col-md-6 mb-3">
                                                     <label class="form-label">Email</label>
-                                                    <input type="email" class="form-control" name="email">
+                                                    <input type="email" class="form-control"
+                                                        v-model="businessForm.email" />
                                                 </div>
+
                                                 <div class="col-md-6 mb-3">
                                                     <label class="form-label">Phone</label>
-                                                    <input type="text" class="form-control" name="phone">
+                                                    <input type="text" class="form-control"
+                                                        v-model="businessForm.phone" />
                                                 </div>
+
                                                 <div class="col-md-6 mb-3">
                                                     <label class="form-label">Website</label>
-                                                    <input type="url" class="form-control" name="website">
+                                                    <input type="text" class="form-control"
+                                                        v-model="businessForm.website" />
                                                 </div>
+
                                                 <div class="col-md-6 mb-3">
                                                     <label class="form-label">Tax ID</label>
-                                                    <input type="text" class="form-control" name="tax_id">
+                                                    <input type="text" class="form-control"
+                                                        v-model="businessForm.tax_id" />
                                                 </div>
+
                                                 <div class="col-md-6 mb-3">
                                                     <label class="form-label">Registration Number</label>
-                                                    <input type="text" class="form-control" name="registration_number">
+                                                    <input type="text" class="form-control"
+                                                        v-model="businessForm.registration_number" />
                                                 </div>
+
                                                 <div class="col-md-6 mb-3">
                                                     <label class="form-label">Industry</label>
-                                                    <input type="text" class="form-control" name="industry">
+                                                    <input type="text" class="form-control"
+                                                        v-model="businessForm.industry" />
                                                 </div>
+
                                                 <div class="col-md-6 mb-3">
                                                     <label class="form-label">Business Type</label>
-                                                    <input type="text" class="form-control" name="business_type">
+                                                    <input type="text" class="form-control"
+                                                        v-model="businessForm.business_type" />
                                                 </div>
+
                                                 <div class="col-md-6 mb-3">
                                                     <label class="form-label">Currency</label>
-                                                    <input type="text" class="form-control" name="currency">
+                                                    <input type="text" class="form-control"
+                                                        v-model="businessForm.currency" />
                                                 </div>
+
                                                 <div class="col-md-6 mb-3">
                                                     <label class="form-label">Bank Account Details</label>
-                                                    <input type="text" class="form-control" name="bank_account_details">
+                                                    <input type="text" class="form-control"
+                                                        v-model="businessForm.bank_account_details" />
                                                 </div>
+
                                                 <div class="col-md-6 mb-3">
                                                     <label class="form-label">Status</label>
-                                                    <select class="form-control" name="status">
+                                                    <select class="form-control" v-model="businessForm.status">
                                                         <option value="active">Active</option>
                                                         <option value="inactive">Inactive</option>
                                                     </select>
                                                 </div>
+
                                                 <div class="col-md-6 mb-3">
                                                     <label class="form-label">Category</label>
-                                                    <input type="text" class="form-control" name="category">
+                                                    <input type="text" class="form-control"
+                                                        v-model="businessForm.category" />
                                                 </div>
+
                                                 <div class="col-md-6 mb-3">
                                                     <label class="form-label">Logo</label>
-                                                    <input type="file" class="form-control" name="logo">
+                                                    <input type="file" class="form-control"
+                                                        @change="handleFileUpload" />
                                                 </div>
+
                                                 <div class="col-md-12 mb-3">
                                                     <label class="form-label">Notes</label>
-                                                    <textarea class="form-control" name="notes" rows="3"></textarea>
-                                                </div>
-                                                <div class="col-md-6 mb-3">
-                                                    <label class="form-label">Created By</label>
-                                                    <input type="text" class="form-control" name="created_by" disabled>
-                                                </div>
-                                                <div class="col-md-6 mb-3">
-                                                    <label class="form-label">Updated By</label>
-                                                    <input type="text" class="form-control" name="updated_by" disabled>
+                                                    <textarea class="form-control" v-model="businessForm.notes"
+                                                        rows="3"></textarea>
                                                 </div>
                                             </div>
                                             <button type="submit" class="btn btn-primary">Submit</button>
@@ -431,7 +461,7 @@
 import AppLayout from "@/Layouts/AppLayout.vue";
 import axios from "axios";
 import { ref, onMounted, defineEmits } from "vue";
-import Loader from "@/components/main/Loader.vue";
+import Loader from "@/Components/main/Loader.vue";
 import ProfileCard from "@/Components/cards/profile/ProfileTopCard.vue";
 import ProfileDetailCard from "@/Components/cards/profile/ProfileDetailCard.vue";
 import { useRoute } from "vue-router";
@@ -451,7 +481,47 @@ import SecondaryButton from '@/Components/SecondaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { nextTick } from 'vue';
 
+// Business Profile
+const businessForm = useForm({
+    name: '',
+    company_code: '',
+    slbfe_reg_code: '',
+    address: '',
+    postal_code: '',
+    city: '',
+    dispatch_countries: '',
+    email: '',
+    phone: '',
+    website: '',
+    tax_id: '',
+    registration_number: '',
+    industry: '',
+    business_type: '',
+    currency: '',
+    bank_account_details: '',
+    status: 'active',
+    category: '',
+    logo: null,
+    notes: '',
+    created_by: '',
+    updated_by: '',
+});
 
+const submitBusinessProfileForm = async () => {
+    try {
+        const response = await axios.post('http://127.0.0.1:8000/business/store', businessForm);
+    } catch (error) {
+        console.log('Error updating profile:', error.response?.data || error);
+    }
+}
+
+const handleFileUpload = (event) => {
+    businessForm.logo = event.target.files[0];
+};
+
+
+
+// PASSWORD SECTION
 // Define reactive variables
 const confirmingUserDeletion = ref(false);
 

@@ -23,9 +23,9 @@
 
   <script setup>
   import { ref } from 'vue'
-  import Footer from '@/components/main/Footer.vue'
-  import Navbar from '@/components/main/Navbar.vue'
-  import Sidebar from '@/components/main/Sidebar.vue'
+  import Footer from '@/Components/main/Footer.vue'
+  import Navbar from '@/Components/main/Navbar.vue'
+  import Sidebar from '@/Components/main/Sidebar.vue'
 
   const sidebarOpen = ref(false)
 

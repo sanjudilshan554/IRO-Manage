@@ -19,19 +19,19 @@
                 <!-- Listing Dropdown -->
                 <li class="nav-item mt-1">
                     <a class="nav-link cursor-pointer" data-bs-toggle="collapse" href="#listingMenu" role="button"
-                        :aria-expanded="isCompanyActive()" :class="{ 'active': $page.url.startsWith('/company') }">
+                        :aria-expanded="isCompanyActive()" :class="{ 'active': $page.url.startsWith('/business') }">
                         <div
                             class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="bi bi-view-stacked text-primary text-lg opacity-10"></i>
                         </div>
-                        <span class="nav-link-text ms-1 pt-1">Company</span>
+                        <span class="nav-link-text ms-1 pt-1">Business</span>
                     </a>
                     <div class="collapse" id="listingMenu" :class="{ show: isCompanyActive() }">
                         <ul class="nav flex-column ms-3">
                             <li class="nav-item">
-                                <Link :href="route('company.index')" class="nav-link cursor-pointer sub-link mt-1"
-                                    :class="{ 'active': $page.url.startsWith('/company') }">
-                                <i class="bi bi-list text-primary text-lg opacity-10"></i>Company view
+                                <Link :href="route('business.index')" class="nav-link cursor-pointer sub-link mt-1"
+                                    :class="{ 'active': $page.url.startsWith('/business') }">
+                                <i class="bi bi-list text-primary text-lg opacity-10"></i>Business view
                                 </Link>
                             </li>
                         </ul>
@@ -70,7 +70,7 @@
 </template>
 
 <script setup>
-import ConfirmModal from '@/components/common/modals/ConfirmModal.vue'
+// import ConfirmModal from '@/Component/common/modals/ConfirmModal.vue'
 import { Link } from '@inertiajs/vue3'
 
 
@@ -100,7 +100,7 @@ defineProps({
 const isActive = (path) => route?.path?.startsWith(path)
 
 const isCompanyActive = () => {
-    return ['/company', '/company/create'].some((path) => route?.path?.startsWith(path))
+    return ['/business', '/business/create'].some((path) => route?.path?.startsWith(path))
 }
 </script>
 

@@ -18,7 +18,7 @@
 </template>
 <script setup>
 import { ref, defineProps, watchEffect, defineEmits } from 'vue'
-import CreateCompanyForm from '@/components/forms/company/CreateCompanyForm.vue'
+import CreateBusinessForm from '@/Components/forms/business/CreateBusinessForm.vue'
 
 const props = defineProps({
     title: {
@@ -38,7 +38,7 @@ const modalInert = ref(false)
 
 watchEffect(() => {
      if (props.formType === 'company') {
-        formComponent.value = CreateCompanyForm
+        formComponent.value = CreateBusinessForm
     }
 })
 

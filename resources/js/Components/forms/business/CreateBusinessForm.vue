@@ -82,11 +82,11 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import SubmitButton from '@/components/common/buttons/SubmitButton.vue'
+import SubmitButton from '@/Components/common/buttons/SubmitButton.vue'
 import axios from 'axios'
-import successMessage from '@/components/alerts/dataSaveAlert.vue'
+import successMessage from '@/Components/alerts/dataSaveAlert.vue'
 import { emitter, CLEAR_CREATE_HOST_VALIDATION, UPDATE_HOST_TABLE } from '@/event-bus.js'
-import Loader from '@/components/main/Loader.vue'
+import Loader from '@/Components/main/Loader.vue'
 const VITE_BASE_URL = import.meta.env.VITE_BASE_URL
 
 const confirm_password = ref('')
@@ -120,7 +120,7 @@ const submitForm = async () => {
     }
 
     try {
-        await axios.post(`http://127.0.0.1:8000/company/store`, formData.value)
+        await axios.post(`http://127.0.0.1:8000/business/store`, formData.value)
         console.log('hello');
         $('#createModal').modal('hide')
         clearFormData()
