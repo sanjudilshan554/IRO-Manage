@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\BusinessController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -29,8 +29,8 @@ Route::middleware('auth')->group(function () {
 require __DIR__ . '/auth.php';
 
 Route::prefix('/company')->group(function () {
-    Route::get('/', [CompanyController::class, 'index'])->name('company.index');
-    Route::post('/store', [CompanyController::class, 'store'])->name('company.store');
+    Route::get('/', [BusinessController::class, 'index'])->name('company.index');
+    Route::post('/store', [BusinessController::class, 'store'])->name('company.store');
 });
 
 Route::prefix('/dashboard')->group(function () {
