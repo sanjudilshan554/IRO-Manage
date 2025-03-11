@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Company;
+use App\Models\Business;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class CompanyController extends Controller
+class BusinessController extends Controller
 {
     public function index()
     {
@@ -15,7 +15,7 @@ class CompanyController extends Controller
 
     public function store(Request $request)
     {
-        return Company::create([
+        return Business::create([
             'name' => $request->name,
         ]);
     }
