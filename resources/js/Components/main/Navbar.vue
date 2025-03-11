@@ -21,10 +21,18 @@
           <li class="nav-item d-flex align-items-center">
             <a href="javascript:;" class="nav-link text-white font-weight-bold px-3">
               <i class="fa fa-user me-sm-1"></i>
+
+              <span>
+  <Link class="text-white" :href="route('profile.edit')">Profile</Link>
+</span>
+
+
               <span class="d-sm-inline d-none" @click.prevent="viewSignIn" v-if="!user"
                 >Sign In</span
               >
               <span class="d-sm-inline d-none" @click.prevent="viewLogoutModal" v-else>Logout</span>
+
+
             </a>
           </li>
 
@@ -52,6 +60,7 @@
 <script setup>
 import { useRouter } from 'vue-router'
 import ConfirmModal from '@/components/common/modals/ConfirmModal.vue'
+import { Link } from '@inertiajs/vue3'
 
 const router = useRouter()
 

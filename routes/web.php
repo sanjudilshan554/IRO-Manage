@@ -30,7 +30,7 @@ require __DIR__ . '/auth.php';
 
 Route::prefix('/company')->group(function () {
     Route::get('/', [CompanyController::class, 'index'])->name('company.index');
-    Route::post('/store', [CompanyController::class, 'store'])->name('company.index');
+    Route::post('/store', [CompanyController::class, 'store'])->name('company.store');
 });
 
 Route::prefix('/dashboard')->group(function () {
