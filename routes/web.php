@@ -29,7 +29,8 @@ Route::middleware('auth')->group(function () {
 require __DIR__ . '/auth.php';
 
 Route::prefix('/company')->group(function () {
-    Route::get('/', [CompanyController::class, 'index'])->middleware(['auth', 'verified'])->name('company.index');
+    Route::get('/', [CompanyController::class, 'index'])->name('company.index');
+    Route::post('/store', [CompanyController::class, 'store'])->name('company.index');
 });
 
 Route::prefix('/dashboard')->group(function () {
