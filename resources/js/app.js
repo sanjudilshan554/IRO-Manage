@@ -1,6 +1,3 @@
-// import '../css/app.css';
-// import './bootstrap';
-
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createApp, h } from 'vue';
@@ -15,13 +12,8 @@ import 'bootstrap'
 import '../../public/js/core/popper.min.js'
 import '../../public/js/plugins/perfect-scrollbar.min.js'
 import '../../public/js/plugins/chartjs.min.js'
-// import '../public/css/nucleo-icons.css'
 import '../../public/css/nucleo-svg.css'
 import '../../public/css/argon-dashboard.css'
-
-// import '../public/js/core/bootstrap.min.js'
-// import '../public/js/plugins/smooth-scrollbar.min.js'
-// import '../public/js/argon-dashboard.min.js'
 
 import VueSweetalert2 from 'vue-sweetalert2'
 import 'sweetalert2/dist/sweetalert2.min.css'
@@ -44,5 +36,3 @@ createInertiaApp({
     },
 });
 
-
-app.use(VueSweetalert2)

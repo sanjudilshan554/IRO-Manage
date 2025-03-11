@@ -29,8 +29,6 @@
 
 <script setup>
 import { ref, defineProps, watchEffect, defineEmits } from 'vue'
-import DeleteTypeForm from '@/components/forms/services/types/DeleteTypeForm.vue'
-import LogoutForm from '@/components/forms/main/LogoutForm.vue'
 
 const formComponent = ref(null)
 
@@ -48,12 +46,6 @@ const props = defineProps({
 })
 
 watchEffect(() => {
-  if (props.formType === 'type') {
-    formComponent.value = DeleteTypeForm
-  }
-  // console.log('form ', props.formType)
-  if (props.formType === 'logout') {
-    formComponent.value = LogoutForm
-  }
+
 })
 </script>

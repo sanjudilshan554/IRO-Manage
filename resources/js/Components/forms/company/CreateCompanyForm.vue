@@ -139,5 +139,5 @@ const submitForm = async () => {
     }
 }
 
-const successAlert = { title: 'New host created successfully' }
+const successAlert = { title: 'New company created successfully' }
 </script>

@@ -18,11 +18,6 @@
 </template>
 <script setup>
 import { ref, defineProps, watchEffect, defineEmits } from 'vue'
-import CreateCategoryForm from '@/components/forms/services/categories/CreateCategoryForm.vue'
-import CreateTypeForm from '@/components/forms/services/types/CreateTypeForm.vue'
-import CreateSubCategoryForm from '@/components/forms/services/sub-categories/CreateSubCategoryForm.vue'
-import CreateHostForm from '@/components/forms/hosts/CreateHostForm.vue'
-import CreateListingForm from '@/components/forms/listing/CreateListingForm.vue'
 import CreateCompanyForm from '@/components/forms/company/CreateCompanyForm.vue'
 
 const props = defineProps({
@@ -40,20 +35,9 @@ const emit = defineEmits(['create-type', 'create-category'])
 
 const formComponent = ref(null)
 const modalInert = ref(false)
-const categoryData = ref([])
 
 watchEffect(() => {
-    if (props.formType === 'category') {
-        formComponent.value = CreateCategoryForm
-    } else if (props.formType === 'type') {
-        formComponent.value = CreateTypeForm
-    } else if (props.formType === 'sub-category') {
-        formComponent.value = CreateSubCategoryForm
-    } else if (props.formType === 'host') {
-        formComponent.value = CreateHostForm
-    } else if (props.formType === 'listing') {
-        formComponent.value = CreateListingForm
-    } else if (props.formType === 'company') {
+     if (props.formType === 'company') {
         formComponent.value = CreateCompanyForm
     }
 })
