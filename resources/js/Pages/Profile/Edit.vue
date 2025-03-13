@@ -2,7 +2,6 @@
     <AuthenticatedLayout>
         <AppLayout>
             <template #content>
-
                 <div class="row">
                     <div class="col-md-8">
                         <div class="card">
@@ -47,8 +46,6 @@
                                     <identityCard />
 
                                     <passwordReset />
-
-
 
                                     <div class="tab-pane fade" id="account" role="tabpanel">
                                         <h4 class="text-danger">Account Deletion</h4>
@@ -165,50 +162,7 @@ import businessProfile from '../Profile/components/business-profile/businessProf
 import basicProfile from '../Profile/components/basic-profile/basicProfile.vue'
 import identityCard from '../Profile/components/identity-cards/identityCard.vue'
 import passwordReset from '../Profile/components/password-reset/passwordReset.vue'
-
-// PASSWORD SECTION
-// Define reactive variables
-const confirmingUserDeletion = ref(false);
-
-
-// Define form for user deletion
-const userForm = useForm({
-    password: '',
-});
-
-// Function to open the confirmation modal
-const confirmUserDeletion = () => {
-    confirmingUserDeletion.value = true;
-
-    nextTick(() => {
-        if (passwordInput.value) {
-            passwordInput.value.focus();
-        }
-    });
-};
-
-// Function to delete the user
-const deleteUser = () => {
-    userForm.delete(route('profile.destroy'), {
-        preserveScroll: true,
-        onSuccess: () => closeModal(),
-        onError: () => {
-            if (passwordInput.value) {
-                passwordInput.value.focus();
-            }
-        },
-        onFinish: () => userForm.reset(),
-    });
-};
-
-// Function to close the modal
-const closeModal = () => {
-    confirmingUserDeletion.value = false;
-    userForm.clearErrors();
-    userForm.reset();
-};
-
-
+import accountDeletion from '../Profile/components/account-deletion/accountDeletion.vue'
 
 
 import { Link, useForm, usePage } from "@inertiajs/vue3";
