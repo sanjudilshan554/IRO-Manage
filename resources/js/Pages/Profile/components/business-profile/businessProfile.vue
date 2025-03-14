@@ -43,7 +43,9 @@
 
                     <div class="col-md-12 mb-3">
                         <label class="form-label">Dispatch Countries</label>
-                        <input type="text" class="form-control" v-model="businessForm.dispatch_countries" />
+                        <multiselect v-model="businessForm.dispatch_countries" :options="countryOptions"
+                            :multiple="true" :taggable="true" @tag="addCountry" placeholder="Select or add countries"
+                            label="name" track-by="name"></multiselect>
                     </div>
 
                     <div class="col-md-12 mb-3">
@@ -65,7 +67,6 @@
                         <label class="form-label">Website</label>
                         <input type="text" class="form-control" v-model="businessForm.website" />
                     </div>
-
 
 
                     <div class="col-md-6 mb-3">
@@ -116,45 +117,6 @@
                         <textarea class="form-control" v-model="businessForm.notes" rows="3"></textarea>
                     </div>
                 </div>
-
-                <!-- Identity Card Section  -->
-
-                <!-- <hr class="horizontal dark" />
-                <div class="row align-items-center g-3">
-                    <div class="col-md-3 col-12">
-                        <p class="text-uppercase text-sm">
-                            Host Identity Card
-                        </p>
-                    </div>
-
-                    <div class="col-md-6 col-12 ms-auto" v-if="
-                        hostData.verification_details
-                            ?.front_image_url &&
-                        hostData.verification_details
-                            ?.back_image_url
-                    ">
-                        <div class="d-flex justify-content-end gap-2">
-                            <button class="btn btn-success" @click.prevent="verifyHostIDCard()" :disabled="hostData.email_verified == 0 ||
-                                hostData.mobile_number_verfied ==
-                                0 ||
-                                hostData.id_verification_verfied ==
-                                1 ||
-                                hostData.is_verfied == 1
-                                ">
-                                Verify
-                            </button>
-                            <button class="btn btn-danger" @click.prevent="rejectHostIDCard()" :disabled="hostData.email_verified == 0 ||
-                                hostData.mobile_number_verfied ==
-                                0 ||
-                                hostData.id_verification_verfied ==
-                                1 ||
-                                hostData.is_verfied == 1
-                                ">
-                                Reject
-                            </button>
-                        </div>
-                    </div>
-                </div> -->
                 <CreateButton class="d-flex float-end" :title="`Create`" v-if="businessForm" />
                 <SaveButton class="d-flex float-end" :title="`Save`" v-else />
             </form>
@@ -166,10 +128,23 @@
 
 <script setup>
 import { useForm } from "@inertiajs/vue3";
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import axios from "axios";
 import SaveButton from "@/Components/common/buttons/SaveButton.vue";
 import CreateButton from "@/Components/common/buttons/CreateButton.vue";
+import Multiselect from "vue-multiselect";
+
+const countryOptions = ref([
+    { name: "United States" },
+    { name: "Canada" },
+    { name: "United Kingdom" },
+    { name: "Australia" },
+]);
+
+const addCountry = (newCountry) => {
+    countryOptions.value.push({ name: newCountry });
+    businessForm.dispatch_countries.push({ name: newCountry });
+};
 
 const businessForm = useForm({
     name: "",
@@ -198,9 +173,6 @@ const businessForm = useForm({
 
 const submitBusinessProfileForm = async () => {
     try {
-        businessForm.dispatch_countries = businessForm.dispatch_countries
-            ? businessForm.dispatch_countries.split(',').map(country => country.trim())
-            : [];
 
         if (businessForm.phone.length > 20) {
             alert("Phone number must not exceed 20 characters.");
@@ -220,11 +192,11 @@ const handleFileUpload = (event) => {
 const getBusinessProfileData = async () => {
     try {
         const response = await axios.get(route('business.all'));
-        console.log('response', response.data);
+        Object.assign(businessForm, response.data);
     } catch (error) {
-        console.log('data', error)
+        console.log('Error fetching business data:', error);
     }
-}
+};
 
 onMounted(() => {
     getBusinessProfileData();
