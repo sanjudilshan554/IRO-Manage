@@ -183,7 +183,7 @@ const submitBusinessProfileForm = async () => {
             alert("Phone number must not exceed 20 characters.");
             return;
         }
-        businessForm.status = businessForm.status?.value;
+        businessForm.status = businessForm.status?.name || 'Pending';
         businessForm.currency = businessForm.currency?.name;
         const response = await axios.post("http://127.0.0.1:8000/business/store", businessForm);
         getBusinessProfileData();
@@ -201,8 +201,10 @@ const getBusinessProfileData = async () => {
         const response = await axios.get(route('business.all'));
         Object.assign(businessForm, response.data);
         const savedCurrency = businessForm.currency;
+        const savedStatus = businessForm.status;
         await getAllCurrencies();
         businessForm.currency = currencyOptions.value.find(currency => currency.name === savedCurrency) || null;
+        businessForm.status = businessStatusOptions.find(status => status.name === savedStatus) || null;
     } catch (error) {
         console.log('Error fetching business data:', error);
     }
@@ -234,7 +236,7 @@ const getAllCurrencies = async () => {
     }
 };
 
-// const nameWithSymbol = currency => `${currency.name} (${currency.symbol})`;
+const nameWithSymbol = currency => `${currency.name} (${currency.symbol})`;
 
 onMounted(() => {
     getAllCurrencies();
