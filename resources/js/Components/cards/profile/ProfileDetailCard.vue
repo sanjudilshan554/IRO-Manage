@@ -85,7 +85,7 @@
 </template>
 
 <script setup>
-import default_user from '@/src/assets/img/user-image/default_user.png'
+import default_user from '@/src/assets/img/user-image/user.png'
 const BASE_IMAGE_URL = import.meta.env.VITE_BASE_IMAGE_URL
 defineProps({
   user_name: { type: String, required: true },

@@ -3,7 +3,7 @@
         <h4>Business Profile</h4>
         <p>Manage your personal details here.</p>
 
-        <div class="card-bodymt-4">
+        <div class="mt-4">
             <form @submit.prevent="submitBusinessProfileForm">
                 <div class="row">
                     <div class="col-md-6 mb-3">
@@ -119,21 +119,15 @@
                         <textarea class="form-control" v-model="businessForm.notes" rows="3"></textarea>
                     </div>
                 </div>
-                <CreateButton class="d-flex float-end" :title="`Create`" v-if="businessForm" />
+                <CreateButton class="d-flex float-end" :title="`Create`" v-if="!businessForm" />
                 <SaveButton class="d-flex float-end" :title="`Save`" v-else />
             </form>
         </div>
-
     </div>
-
 
     <Loader :isLoading="isLoading" />
 
 </template>
-
-<!-- <template #loader>
-    <Loader :isLoading="isLoading" />
-  </template> -->
 
 <script setup>
 import { useForm } from "@inertiajs/vue3";
@@ -186,7 +180,6 @@ const businessForm = useForm({
 });
 
 const submitBusinessProfileForm = async () => {
-
     isLoading.value = true
     try {
 
@@ -229,18 +222,24 @@ const getBusinessProfileData = async () => {
 
 
 const getAllCountries = async () => {
+    isLoading.value = true;
     try {
         const response = await axios.get(route('countries.all'));
         countryOptions.value = response.data.map(country => ({
             name: country.name,
             id: country.id
         }))
+
+        isLoading.value = false;
     } catch (error) {
         console.log('Error fetching countries data:', error);
+        isLoading.value = false;
     }
 };
 
 const getAllCurrencies = async () => {
+
+    isLoading.value = true;
     try {
         const response = await axios.get(route('currencies.all'));
         currencyOptions.value = response.data.map(currency => ({
@@ -248,8 +247,10 @@ const getAllCurrencies = async () => {
             symbol: currency.symbol,
             id: currency.id,
         }))
+        isLoading.value = false;
     } catch (error) {
         console.log('Error fetching countries data:', error);
+        isLoading.value = false;
     }
 };
 
