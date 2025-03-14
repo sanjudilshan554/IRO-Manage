@@ -155,7 +155,8 @@
                         </div>
                     </div>
                 </div> -->
-                <button type="submit" class="btn btn-primary d-flex float-end">Save</button>
+                <CreateButton class="d-flex float-end" :title="`Create`" v-if="businessForm" />
+                <SaveButton class="d-flex float-end" :title="`Save`" v-else />
             </form>
         </div>
 
@@ -165,49 +166,62 @@
 
 <script setup>
 import { useForm } from "@inertiajs/vue3";
-import axios from "axios"
-
+import axios from "axios";
+import SaveButton from "@/Components/common/buttons/SaveButton.vue";
+import CreateButton from "@/Components/common/buttons/CreateButton.vue";
 
 // Business Profile
 const businessForm = useForm({
-    name: '',
-    company_code: '',
-    slbfe_reg_code: '',
-    address: '',
-    postal_code: '',
-    city: '',
-    dispatch_countries: '',
-    email: '',
-    phone: '',
-    website: '',
-    tax_id: '',
-    registration_number: '',
-    industry: '',
-    business_type: '',
-    currency: '',
-    bank_account_details: '',
-    status: 'active',
-    category: '',
+    name: "",
+    company_code: "",
+    slbfe_reg_code: "",
+    address: "",
+    postal_code: "",
+    city: "",
+    dispatch_countries: [], // Changed to an array
+    email: "",
+    phone: "",
+    website: "",
+    tax_id: "",
+    registration_number: "",
+    industry: "",
+    business_type: "",
+    currency: "",
+    bank_account_details: "",
+    status: true, // Changed to boolean
+    category: "",
     logo: null,
-    notes: '',
-    created_by: '',
-    updated_by: '',
+    notes: "",
+    created_by: "",
+    updated_by: "",
 });
 
 const submitBusinessProfileForm = async () => {
     try {
-        const response = await axios.post('http://127.0.0.1:8000/business/store', businessForm);
+        // Ensure dispatch_countries is an array before splitting
+        if (typeof businessForm.dispatch_countries === "string") {
+            businessForm.dispatch_countries = businessForm.dispatch_countries
+                .split(",")
+                .map(country => country.trim());
+        }
+
+        // Ensure phone number does not exceed 20 characters
+        if (businessForm.phone.length > 20) {
+            alert("Phone number must not exceed 20 characters.");
+            return;
+        }
+
+        const response = await axios.post("http://127.0.0.1:8000/business/store", businessForm);
     } catch (error) {
-        console.log('Error updating profile:', error.response?.data || error);
+        console.log("Error updating profile:", error.response?.data || error);
     }
-}
+};
+
 
 const handleFileUpload = (event) => {
     businessForm.logo = event.target.files[0];
 };
-
-
-
 </script>
+
 
 <style></style>

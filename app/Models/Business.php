@@ -31,6 +31,7 @@ class Business extends Model
         'updated_by',
     ];
 
-
-
+    protected $casts = [
+        'dispatch_countries' => 'array',
+    ];
 }

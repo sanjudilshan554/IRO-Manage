@@ -19,7 +19,7 @@ return new class extends Migration
             $table->String('address')->nullable();
             $table->String('postal_code')->nullable();
             $table->String('city')->nullable();
-            $table->String('dispatch_countries')->nullable();
+            $table->json('dispatch_countries')->nullable();
             $table->String('email')->nullable();
             $table->String('phone')->nullable();
             $table->String('website')->nullable();

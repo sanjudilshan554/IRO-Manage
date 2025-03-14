@@ -1,5 +1,9 @@
 <template>
-  <button type="submit" class="btn btn-info">Save</button>
+  <button type="submit" class="btn btn-info">{{title}}</button>
 </template>
 
-<script setup></script>
+<script setup>
+defineProps({
+    title: String
+})
+</script>

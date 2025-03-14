@@ -2,11 +2,13 @@
   <button
     type="submit"
     class="btn btn-primary"
-    data-bs-toggle="modal"
-    data-bs-target="#createModal"
   >
-    Create
+    {{title}}
   </button>
 </template>
 
-<script setup></script>
+<script setup>
+defineProps({
+    title: String
+})
+</script>
