@@ -126,7 +126,14 @@
 
     </div>
 
+
+    <Loader :isLoading="isLoading" />
+
 </template>
+
+<!-- <template #loader>
+    <Loader :isLoading="isLoading" />
+  </template> -->
 
 <script setup>
 import { useForm } from "@inertiajs/vue3";
@@ -135,9 +142,11 @@ import axios from "axios";
 import SaveButton from "@/Components/common/buttons/SaveButton.vue";
 import CreateButton from "@/Components/common/buttons/CreateButton.vue";
 import Multiselect from "vue-multiselect";
+import Loader from '@/Components/main/Loader.vue';
 
 const countryOptions = ref([]);
 const currencyOptions = ref([]);
+const isLoading = ref(false)
 
 const addCountry = (newCountry) => {
     countryOptions.value.push({ name: newCountry });
@@ -177,6 +186,8 @@ const businessForm = useForm({
 });
 
 const submitBusinessProfileForm = async () => {
+
+    isLoading.value = true
     try {
 
         if (businessForm.phone.length > 20) {
@@ -187,8 +198,11 @@ const submitBusinessProfileForm = async () => {
         businessForm.currency = businessForm.currency?.name;
         const response = await axios.post("http://127.0.0.1:8000/business/store", businessForm);
         getBusinessProfileData();
+        isLoading.value = false
     } catch (error) {
         console.log("Error updating profile:", error.response?.data || error);
+
+        isLoading.value = false
     }
 };
 
@@ -197,6 +211,7 @@ const handleFileUpload = (event) => {
 };
 
 const getBusinessProfileData = async () => {
+    isLoading.value = true;
     try {
         const response = await axios.get(route('business.all'));
         Object.assign(businessForm, response.data);
@@ -205,8 +220,10 @@ const getBusinessProfileData = async () => {
         await getAllCurrencies();
         businessForm.currency = currencyOptions.value.find(currency => currency.name === savedCurrency) || null;
         businessForm.status = businessStatusOptions.find(status => status.name === savedStatus) || null;
+        isLoading.value = false;
     } catch (error) {
         console.log('Error fetching business data:', error);
+        isLoading.value = false;
     }
 };
 

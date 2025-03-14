@@ -6,7 +6,7 @@
 
 <script setup>
 import { defineProps } from 'vue'
-import companyLogo from '@/src/assets/loader-images/loader.png'
+import companyLogo from '@/src/assets/loader-images/loading-3-org.gif'
 
 defineProps({
   isLoading: {
@@ -31,11 +31,13 @@ defineProps({
 }
 
 .loading-image {
-  width: 150px;
+  width: 250px;
   animation: blink 1s infinite;
 }
 
-@keyframes blink {
+
+/* !!!! REMINDER YOU CAN UNLOCK THE BLINKER !!!!*/
+/* @keyframes blink {
   0%,
   100% {
     opacity: 1;
@@ -43,5 +45,5 @@ defineProps({
   50% {
     opacity: 0;
   }
-}
+} */
 </style>
