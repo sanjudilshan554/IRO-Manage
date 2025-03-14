@@ -16,6 +16,7 @@ class Business extends Model
         'dispatch_countries',
         'email',
         'phone',
+        'phone_2',
         'website',
         'tax_id',
         'registration_number',

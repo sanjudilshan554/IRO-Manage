@@ -60,7 +60,7 @@
 
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Phone 2</label>
-                        <input type="text" class="form-control" v-model="businessForm.phone" />
+                        <input type="text" class="form-control" v-model="businessForm.phone_2" />
                     </div>
 
                     <div class="col-md-12 mb-3">
@@ -85,8 +85,10 @@
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label class="form-label">Currency</label>
-                        <input type="text" class="form-control" v-model="businessForm.currency" />
+                        <label class="form-label">Base Currency</label>
+                        <multiselect id="single-select-search" v-model="businessForm.currency" label="name"
+                            :options="currencyOptions" :custom-label="nameWithSymbol" placeholder="Select one"
+                            track-by="name" aria-label="pick a value"></multiselect>
                     </div>
 
                     <div class="col-md-6 mb-3">
@@ -96,10 +98,10 @@
 
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Status</label>
-                        <select class="form-control" v-model="businessForm.status">
-                            <option value="active">Active</option>
-                            <option value="inactive">Inactive</option>
-                        </select>
+
+                        <multiselect id="single-select-search" v-model="businessForm.status"
+                            :options="businessStatusOptions" :custom-label="nameWithLang" placeholder="Select one"
+                            label="name" track-by="name" aria-label="pick a value"></multiselect>
                     </div>
 
                     <div class="col-md-6 mb-3">
@@ -135,11 +137,18 @@ import CreateButton from "@/Components/common/buttons/CreateButton.vue";
 import Multiselect from "vue-multiselect";
 
 const countryOptions = ref([]);
+const currencyOptions = ref([]);
 
 const addCountry = (newCountry) => {
     countryOptions.value.push({ name: newCountry });
     businessForm.dispatch_countries.push({ name: newCountry });
 };
+
+const businessStatusOptions = [
+    { name: 'Active', value: 1 },
+    { name: 'Inactive', value: 2 },
+    { name: 'Pending', value: 3 },
+]
 
 const businessForm = useForm({
     name: "",
@@ -151,6 +160,7 @@ const businessForm = useForm({
     dispatch_countries: [],
     email: "",
     phone: "",
+    phone_2: "",
     website: "",
     tax_id: "",
     registration_number: "",
@@ -158,7 +168,7 @@ const businessForm = useForm({
     business_type: "",
     currency: "",
     bank_account_details: "",
-    status: true,
+    status: null,
     category: "",
     logo: null,
     notes: "",
@@ -173,8 +183,10 @@ const submitBusinessProfileForm = async () => {
             alert("Phone number must not exceed 20 characters.");
             return;
         }
-
+        businessForm.status = businessForm.status?.value;
+        businessForm.currency = businessForm.currency?.name;
         const response = await axios.post("http://127.0.0.1:8000/business/store", businessForm);
+        getBusinessProfileData();
     } catch (error) {
         console.log("Error updating profile:", error.response?.data || error);
     }
@@ -188,6 +200,9 @@ const getBusinessProfileData = async () => {
     try {
         const response = await axios.get(route('business.all'));
         Object.assign(businessForm, response.data);
+        const savedCurrency = businessForm.currency;
+        await getAllCurrencies();
+        businessForm.currency = currencyOptions.value.find(currency => currency.name === savedCurrency) || null;
     } catch (error) {
         console.log('Error fetching business data:', error);
     }
@@ -206,9 +221,25 @@ const getAllCountries = async () => {
     }
 };
 
+const getAllCurrencies = async () => {
+    try {
+        const response = await axios.get(route('currencies.all'));
+        currencyOptions.value = response.data.map(currency => ({
+            name: currency.name,
+            symbol: currency.symbol,
+            id: currency.id,
+        }))
+    } catch (error) {
+        console.log('Error fetching countries data:', error);
+    }
+};
+
+// const nameWithSymbol = currency => `${currency.name} (${currency.symbol})`;
+
 onMounted(() => {
-    getBusinessProfileData();
+    getAllCurrencies();
     getAllCountries();
+    getBusinessProfileData();
 });
 </script>
 

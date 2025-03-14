@@ -40,6 +40,7 @@ Route::prefix('/dashboard')->group(function () {
 });
 
 
-Route::prefix('/countries')->group(function () {
-    Route::get('/all', [GeneralDataController::class, 'allCountries'])->name('countries.all');
+Route::prefix('/general')->group(function () {
+    Route::get('/all-countries', [GeneralDataController::class, 'allCountries'])->name('countries.all');
+    Route::get('/all-currencies', [GeneralDataController::class, 'allCurrencies'])->name('currencies.all');
 });

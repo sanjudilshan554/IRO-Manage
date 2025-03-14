@@ -21,7 +21,8 @@ return new class extends Migration
             $table->String('city')->nullable();
             $table->json('dispatch_countries')->nullable();
             $table->String('email')->nullable();
-            $table->String('phone')->nullable();
+            $table->string('phone', 20)->nullable();
+            $table->string('phone_2', 20)->nullable();
             $table->String('website')->nullable();
             $table->String('tax_id')->nullable();
             $table->String('registration_number')->nullable();

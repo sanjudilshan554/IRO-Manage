@@ -37,7 +37,7 @@ class CreateBusinessRequest extends FormRequest
             'registration_number' => 'nullable|string|max:50',
             'industry' => 'nullable|string|max:100',
             'business_type' => 'nullable|string|max:100',
-            'currency' => 'nullable|string|max:10',
+            'currency' => 'nullable',
             'bank_account_details' => 'nullable|string|max:500',
             'category' => 'nullable|string|max:100',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
