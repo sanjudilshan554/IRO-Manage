@@ -9,14 +9,17 @@
                                 <p class="mb-0">Business Profile</p>
                             </div>
                             <div class="card-body mt-4">
-                                <ul class="nav nav-tabs" id="profileTab" role="tablist">
-                                    <li v-for="tab in tabs" :key="tab.id" class="nav-item" role="presentation">
-                                        <button class="nav-link" :class="{ active: tab.active }" :id="tab.id"
-                                            data-bs-toggle="tab" :data-bs-target="tab.target" type="button" role="tab">
-                                            {{ tab.label }}
-                                        </button>
-                                    </li>
-                                </ul>
+                                <div class="tabs-container">
+                                    <ul class="nav nav-tabs" id="profileTab" role="tablist">
+                                        <li v-for="tab in tabs" :key="tab.id" class="nav-item" role="presentation">
+                                            <button class="nav-link" :class="{ active: tab.active }" :id="tab.id"
+                                                data-bs-toggle="tab" :data-bs-target="tab.target" type="button"
+                                                role="tab">
+                                                {{ tab.label }}
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
                                 <div class="tab-content mt-3" id="profileTabContent">
                                     <businessProfile />
                                     <basicProfile />
@@ -67,9 +70,34 @@ const tabs = [
 onMounted(() => {
     // Fetch host data if necessary
 });
-
-
-
 </script>
 
-<style scoped></style>
+<style scoped>
+.tabs-container {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+
+.nav-tabs {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    padding: 0;
+    margin-bottom: 0;
+}
+
+.nav-item {
+    flex-shrink: 0;
+}
+
+.nav-link {
+    padding: 10px 15px;
+    white-space: nowrap;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+    background-color: #f1f1f1;
+}
+</style>

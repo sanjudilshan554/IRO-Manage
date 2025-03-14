@@ -198,12 +198,11 @@ const businessForm = useForm({
 
 const submitBusinessProfileForm = async () => {
     try {
-        // Ensure dispatch_countries is an array before splitting
-        if (typeof businessForm.dispatch_countries === "string") {
-            businessForm.dispatch_countries = businessForm.dispatch_countries
-                .split(",")
-                .map(country => country.trim());
-        }
+        // Convert `dispatch_countries` to an array (split by commas or another delimiter)
+         // Ensure dispatch_countries is an array
+         businessForm.dispatch_countries = businessForm.dispatch_countries
+            ? businessForm.dispatch_countries.split(',').map(country => country.trim())
+            : [];
 
         // Ensure phone number does not exceed 20 characters
         if (businessForm.phone.length > 20) {
@@ -216,7 +215,6 @@ const submitBusinessProfileForm = async () => {
         console.log("Error updating profile:", error.response?.data || error);
     }
 };
-
 
 const handleFileUpload = (event) => {
     businessForm.logo = event.target.files[0];
