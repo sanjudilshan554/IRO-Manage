@@ -1,5 +1,11 @@
 <template>
-  <button class="btn btn-danger">Delete</button>
+   <button class="btn btn-danger" @click="$emit('click')">{{ title }}</button>
 </template>
 
-<script setup></script>
+<script setup>
+
+defineProps({
+  title: String
+});
+
+</script>

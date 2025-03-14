@@ -23,7 +23,6 @@
                                     <identityCard />
                                     <passwordReset />
                                     <accountDeletion />
-
                                 </div>
                             </div>
                         </div>
@@ -58,16 +57,6 @@ import identityCard from '../Profile/components/identity-cards/identityCard.vue'
 import passwordReset from '../Profile/components/password-reset/passwordReset.vue';
 import accountDeletion from '../Profile/components/account-deletion/accountDeletion.vue';
 import { useForm } from "@inertiajs/vue3";
-
-import DangerButton from '@/Components/DangerButton.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import Modal from '@/Components/Modal.vue';
-import SecondaryButton from '@/Components/SecondaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
-// import { useForm } from '@inertiajs/vue3';
-// import { nextTick, ref } from 'vue';
-
 
 const hostData = ref({});
 const isLoading = ref(false);

@@ -9,19 +9,7 @@
 
         <div class="row">
             <section class="space-y-6">
-                <header>
-                    <h2 class="text-lg font-medium text-gray-900">
-                        Delete Account
-                    </h2>
-
-                    <p class="mt-1 text-sm text-gray-600">
-                        Once your account is deleted, all of its resources and data will
-                        be permanently deleted. Before deleting your account, please
-                        download any data or information that you wish to retain.
-                    </p>
-                </header>
-
-                <DangerButton @click="confirmUserDeletion">Delete Account</DangerButton>
+                <DeleteButton @click="confirmUserDeletion" :title="`Delete Account`"/>
 
                 <Modal :show="confirmingUserDeletion" @close="closeModal">
                     <div class="p-6">
@@ -45,14 +33,9 @@
                         </div>
 
                         <div class="mt-6 flex justify-end">
-                            <SecondaryButton @click="closeModal">
-                                Cancel
-                            </SecondaryButton>
+                            <CancelButton @click="closeModal" :title="`Cancel`"/>
 
-                            <DangerButton class="ms-3" :class="{ 'opacity-25': userForm.processing }"
-                                :disabled="userForm.processing" @click="deleteUser">
-                                Delete Account
-                            </DangerButton>
+                            <DeleteButton class="ms-3" :disabled="userForm.processing" @click="deleteUser" :title="'Delete Account'" />
                         </div>
                     </div>
                 </Modal>
@@ -68,12 +51,13 @@ import DangerButton from '@/Components/DangerButton.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import Modal from '@/Components/Modal.vue';
-import SecondaryButton from '@/Components/SecondaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
+import DeleteButton from '@/Components/common/buttons/DeleteButton.vue'
+import CancelButton from '@/Components/common/buttons/CancelButton.vue'
 
 // Define reactive variables
 const confirmingUserDeletion = ref(false);
-const passwordInput = ref(null); // Define password input reference
+const passwordInput = ref(null);
 
 // Define form for user deletion
 const userForm = useForm({
@@ -111,4 +95,6 @@ const closeModal = () => {
     userForm.clearErrors();
     userForm.reset();
 };
+
+
 </script>
