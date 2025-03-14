@@ -194,15 +194,15 @@ const getBusinessProfileData = async () => {
 };
 
 
-
 const getAllCountries = async () => {
     try {
         const response = await axios.get(route('countries.all'));
-
-        countryOptions.value = response;
-        console.log('coun', response.data);
+        countryOptions.value = response.data.map(country => ({
+            name: country.name,
+            id: country.id
+        }))
     } catch (error) {
-        console.log('Error fetching business data:', error);
+        console.log('Error fetching countries data:', error);
     }
 };
 

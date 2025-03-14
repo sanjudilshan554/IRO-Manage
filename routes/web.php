@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BusinessController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\GeneralDataController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -38,3 +39,7 @@ Route::prefix('/dashboard')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 });
 
+
+Route::prefix('/countries')->group(function () {
+    Route::get('/all', [GeneralDataController::class, 'allCountries'])->name('countries.all');
+});
