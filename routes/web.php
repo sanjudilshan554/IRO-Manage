@@ -31,6 +31,7 @@ require __DIR__ . '/auth.php';
 Route::prefix('/business')->group(function () {
     Route::get('/', [BusinessController::class, 'index'])->name('business.index');
     Route::post('/store', [BusinessController::class, 'store'])->name('business.store');
+    Route::get('/all', [BusinessController::class, 'all'])->name('business.all');
 });
 
 Route::prefix('/dashboard')->group(function () {

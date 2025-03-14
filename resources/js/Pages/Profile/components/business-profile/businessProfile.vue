@@ -166,11 +166,11 @@
 
 <script setup>
 import { useForm } from "@inertiajs/vue3";
+import { onMounted } from "vue";
 import axios from "axios";
 import SaveButton from "@/Components/common/buttons/SaveButton.vue";
 import CreateButton from "@/Components/common/buttons/CreateButton.vue";
 
-// Business Profile
 const businessForm = useForm({
     name: "",
     company_code: "",
@@ -178,7 +178,7 @@ const businessForm = useForm({
     address: "",
     postal_code: "",
     city: "",
-    dispatch_countries: [], // Changed to an array
+    dispatch_countries: [],
     email: "",
     phone: "",
     website: "",
@@ -188,7 +188,7 @@ const businessForm = useForm({
     business_type: "",
     currency: "",
     bank_account_details: "",
-    status: true, // Changed to boolean
+    status: true,
     category: "",
     logo: null,
     notes: "",
@@ -198,13 +198,10 @@ const businessForm = useForm({
 
 const submitBusinessProfileForm = async () => {
     try {
-        // Convert `dispatch_countries` to an array (split by commas or another delimiter)
-         // Ensure dispatch_countries is an array
-         businessForm.dispatch_countries = businessForm.dispatch_countries
+        businessForm.dispatch_countries = businessForm.dispatch_countries
             ? businessForm.dispatch_countries.split(',').map(country => country.trim())
             : [];
 
-        // Ensure phone number does not exceed 20 characters
         if (businessForm.phone.length > 20) {
             alert("Phone number must not exceed 20 characters.");
             return;
@@ -219,6 +216,19 @@ const submitBusinessProfileForm = async () => {
 const handleFileUpload = (event) => {
     businessForm.logo = event.target.files[0];
 };
+
+const getBusinessProfileData = async () => {
+    try {
+        const response = await axios.get(route('business.all'));
+        console.log('response', response.data);
+    } catch (error) {
+        console.log('data', error)
+    }
+}
+
+onMounted(() => {
+    getBusinessProfileData();
+});
 </script>
 
 

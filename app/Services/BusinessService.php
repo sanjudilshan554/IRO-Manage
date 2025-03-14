@@ -67,4 +67,10 @@ class BusinessService
             ]);
         }
     }
+
+    public function all()
+    {
+        $businessProfile =  Business::first();
+        return $businessProfile;
+    }
 }

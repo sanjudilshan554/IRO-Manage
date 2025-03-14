@@ -20,4 +20,8 @@ class BusinessController extends Controller
         $data = $request->all();
         return BusinessFacade::store($data);
     }
+
+    public function all(){
+        return BusinessFacade::all();
+    }
 }
