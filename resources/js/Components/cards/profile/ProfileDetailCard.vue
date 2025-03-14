@@ -18,7 +18,7 @@
       <div class="card-body pt-0">
         <!-- Header Section -->
         <div class="text-center mt-4">
-          <h5>{{ first_name }} {{ last_name }}</h5>
+          <h5>{{ name }}</h5>
         </div>
 
         <!-- Details Section -->
@@ -85,7 +85,8 @@
 </template>
 
 <script setup>
-import default_user from '@/src/assets/img/user-image/user.png'
+import default_user from '@/src/assets/img/user-image/default_business2.png'
+
 const BASE_IMAGE_URL = import.meta.env.VITE_BASE_IMAGE_URL
 defineProps({
   user_name: { type: String, required: true },
