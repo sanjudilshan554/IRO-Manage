@@ -23,6 +23,7 @@
                                     <identityCard />
                                     <passwordReset />
                                     <accountDeletion />
+
                                 </div>
                             </div>
                         </div>
@@ -56,6 +57,17 @@ import basicProfile from '../Profile/components/basic-profile/basicProfile.vue';
 import identityCard from '../Profile/components/identity-cards/identityCard.vue';
 import passwordReset from '../Profile/components/password-reset/passwordReset.vue';
 import accountDeletion from '../Profile/components/account-deletion/accountDeletion.vue';
+import { useForm } from "@inertiajs/vue3";
+
+import DangerButton from '@/Components/DangerButton.vue';
+import InputError from '@/Components/InputError.vue';
+import InputLabel from '@/Components/InputLabel.vue';
+import Modal from '@/Components/Modal.vue';
+import SecondaryButton from '@/Components/SecondaryButton.vue';
+import TextInput from '@/Components/TextInput.vue';
+// import { useForm } from '@inertiajs/vue3';
+// import { nextTick, ref } from 'vue';
+
 
 const hostData = ref({});
 const isLoading = ref(false);
@@ -89,6 +101,48 @@ const rejectModalProps = {
 onMounted(() => {
     // Fetch host data if necessary
 });
+
+// Define reactive variables
+const confirmingUserDeletion = ref(false);
+const passwordInput = ref(null); // Define password input reference
+
+// Define form for user deletion
+const userForm = useForm({
+    password: '',
+});
+
+// Function to open the confirmation modal
+const confirmUserDeletion = () => {
+    confirmingUserDeletion.value = true;
+
+    nextTick(() => {
+        if (passwordInput.value) {
+            passwordInput.value.focus();
+        }
+    });
+};
+
+// Function to delete the user
+const deleteUser = () => {
+    userForm.delete(route('profile.destroy'), {
+        preserveScroll: true,
+        onSuccess: () => closeModal(),
+        onError: () => {
+            if (passwordInput.value) {
+                passwordInput.value.focus();
+            }
+        },
+        onFinish: () => userForm.reset(),
+    });
+};
+
+// Function to close the modal
+const closeModal = () => {
+    confirmingUserDeletion.value = false;
+    userForm.clearErrors();
+    userForm.reset();
+};
+
 </script>
 
 <style scoped>

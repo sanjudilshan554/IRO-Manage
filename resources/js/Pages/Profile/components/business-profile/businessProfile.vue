@@ -164,7 +164,8 @@
 </template>
 
 <script setup>
-import { Link, useForm, usePage } from "@inertiajs/vue3";
+import { useForm } from "@inertiajs/vue3";
+import axios from "axios"
 
 
 // Business Profile
