@@ -18,11 +18,6 @@ class BusinessController extends Controller
     public function store(CreateBusinessRequest $request)
     {
         $data = $request->all();
-        
-        if (isset($data['dispatch_countries']) && is_array($data['dispatch_countries'])) {
-            $data['dispatch_countries'] = json_encode($data['dispatch_countries']);
-        }
-
-        BusinessFacade::store($data);
+        return BusinessFacade::store($data);
     }
 }

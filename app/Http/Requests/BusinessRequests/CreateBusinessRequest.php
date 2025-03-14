@@ -23,7 +23,7 @@ class CreateBusinessRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'company_code' => 'required|string|max:50|unique:businesses,company_code',
+            'company_code' => 'required|string|max:50',
             'slbfe_reg_code' => 'nullable|string|max:50',
             'address' => 'required|string|max:500',
             'postal_code' => 'nullable|string|max:20',
@@ -31,7 +31,7 @@ class CreateBusinessRequest extends FormRequest
             'status' => 'required',
             'dispatch_countries' => 'nullable|array',
             'dispatch_countries.*' => 'string|max:100',
-            'email' => 'required|email|max:255|unique:businesses,email',
+            'email' => 'required|email|max:255',
             'phone' => 'required|string|max:20',
             'website' => 'nullable|url|max:255',
             'tax_id' => 'nullable|string|max:50',
@@ -55,7 +55,6 @@ class CreateBusinessRequest extends FormRequest
     {
         return [
             'name.required' => 'The business name is required.',
-            'company_code.unique' => 'This company code is already in use.',
             'email.required' => 'The email is required.',
             'email.email' => 'Enter a valid email address.',
             'phone.required' => 'The phone number is required.',
