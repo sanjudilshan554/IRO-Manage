@@ -134,12 +134,7 @@ import SaveButton from "@/Components/common/buttons/SaveButton.vue";
 import CreateButton from "@/Components/common/buttons/CreateButton.vue";
 import Multiselect from "vue-multiselect";
 
-const countryOptions = ref([
-    { name: "United States" },
-    { name: "Canada" },
-    { name: "United Kingdom" },
-    { name: "Australia" },
-]);
+const countryOptions = ref([]);
 
 const addCountry = (newCountry) => {
     countryOptions.value.push({ name: newCountry });
@@ -198,8 +193,22 @@ const getBusinessProfileData = async () => {
     }
 };
 
+
+
+const getAllCountries = async () => {
+    try {
+        const response = await axios.get(route('countries.all'));
+
+        countryOptions.value = response;
+        console.log('coun', response.data);
+    } catch (error) {
+        console.log('Error fetching business data:', error);
+    }
+};
+
 onMounted(() => {
     getBusinessProfileData();
+    getAllCountries();
 });
 </script>
 
