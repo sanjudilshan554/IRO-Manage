@@ -31,9 +31,7 @@
                 </div>
             </template>
             <template #modals>
-                <HostIDModal :selectedIdSide="selectedIdSide" :modalImageSrc="modalImageSrc" />
-                <VerifyHostID v-bind="verifyModalProps" />
-                <RejectHostIDCardModal v-bind="rejectModalProps" />
+
             </template>
             <template #loader>
                 <Loader :isLoading="isLoading" />
@@ -48,21 +46,14 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import Loader from '@/Components/main/Loader.vue';
 import ProfileDetailCard from '@/Components/cards/profile/ProfileDetailCard.vue';
-import HostIDModal from '@/Components/common/modals/host-profile/HostIDModal.vue';
-import VerifyHostID from '@/Components/common/modals/host-profile/HostIDVerifiedModal.vue';
-import RejectHostIDCardModal from '@/Components/common/modals/host-profile/HostIDRejectModal.vue';
 import businessProfile from '../Profile/components/business-profile/businessProfile.vue';
 import basicProfile from '../Profile/components/basic-profile/basicProfile.vue';
 import identityCard from '../Profile/components/identity-cards/identityCard.vue';
 import passwordReset from '../Profile/components/password-reset/passwordReset.vue';
 import accountDeletion from '../Profile/components/account-deletion/accountDeletion.vue';
-import { useForm } from "@inertiajs/vue3";
 
 const hostData = ref({});
 const isLoading = ref(false);
-const modalImageSrc = ref('');
-const selectedIdSide = ref('');
-const hostVerificationDetailsId = ref(0);
 const emit = defineEmits(['clear-validation']);
 
 const tabs = [
@@ -73,72 +64,12 @@ const tabs = [
     { id: 'account-tab', label: 'Account Deletion', target: '#account', active: false, class: 'text-danger' },
 ];
 
-const verifyModalProps = {
-    title: 'Verify Host Identity Card',
-    hostId: hostVerificationDetailsId,
-    content: 'Are you sure you want to verify this host identity card?',
-    formType: 'host',
-};
-
-const rejectModalProps = {
-    title: 'Reject Host Identity Card',
-    hostId: hostVerificationDetailsId,
-    content: 'Are you sure you want to reject this host identity card?',
-    formType: 'host',
-};
-
 onMounted(() => {
     // Fetch host data if necessary
 });
 
-// Define reactive variables
-const confirmingUserDeletion = ref(false);
-const passwordInput = ref(null); // Define password input reference
 
-// Define form for user deletion
-const userForm = useForm({
-    password: '',
-});
-
-// Function to open the confirmation modal
-const confirmUserDeletion = () => {
-    confirmingUserDeletion.value = true;
-
-    nextTick(() => {
-        if (passwordInput.value) {
-            passwordInput.value.focus();
-        }
-    });
-};
-
-// Function to delete the user
-const deleteUser = () => {
-    userForm.delete(route('profile.destroy'), {
-        preserveScroll: true,
-        onSuccess: () => closeModal(),
-        onError: () => {
-            if (passwordInput.value) {
-                passwordInput.value.focus();
-            }
-        },
-        onFinish: () => userForm.reset(),
-    });
-};
-
-// Function to close the modal
-const closeModal = () => {
-    confirmingUserDeletion.value = false;
-    userForm.clearErrors();
-    userForm.reset();
-};
 
 </script>
 
-<style scoped>
-.identity-card img {
-    width: 500px;
-    height: 250px;
-    object-fit: contain;
-    border-radius: 8px;
-}
-</style>
+<style scoped></style>
