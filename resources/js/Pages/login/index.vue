@@ -1,5 +1,5 @@
 <template>
-  <AuthenticationLayout>
+  <AuthenticatedLayout>
     <template #content>
       <div class="row">
         <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto">
@@ -91,14 +91,14 @@
 
       <successMessage v-if="showSuccess" :alertTitle="successAlert.title" />
     </template>
-  </AuthenticationLayout>
+  </AuthenticatedLayout>
 </template>
 
 <script setup>
-import AuthenticationLayout from '@/layouts/AuthenticationLayout.vue'
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 import { useRouter } from 'vue-router'
 import { ref, defineEmits, onMounted } from 'vue'
-import successMessage from '@/components/alerts/dataSaveAlert.vue'
+// import successMessage from '@/Component/alerts/dataSaveAlert.vue'
 import { emitter, CLEAR_LOGIN_VALIDATION } from '@/event-bus.js'
 // import Loader from '@/components/main/Loader.vue'
 import axios from 'axios'
