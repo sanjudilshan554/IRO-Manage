@@ -66,6 +66,8 @@
             </div> -->
           </div>
         </div>
+
+        
         <div
           class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column"
         >
@@ -87,8 +89,6 @@
           </div>
         </div>
       </div>
-      <!-- <Loader :isLoading="isLoading" /> -->
-
       <successMessage v-if="showSuccess" :alertTitle="successAlert.title" />
     </template>
   </AuthenticatedLayout>
