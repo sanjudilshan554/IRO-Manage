@@ -23,37 +23,45 @@
 
         <!-- Details Section -->
         <div class="details mt-3">
-          <div class="row mb-2">
+          <div class="row mb-2"  >
+            <div class="col-6 text-left"><i class="bi bi-circle pe-2"></i>SLBFE Reg No</div>
+            <div class="col-6 text-right" v-if="email">{{ slbfe_reg_code }}</div>
+            <div class="col-6 text-right" v-else> not configured </div>
+          </div>
+          <div class="row mb-2"  >
             <div class="col-6 text-left"><i class="bi bi-envelope pe-2"></i>Email</div>
-            <div class="col-6 text-right">{{ email }}</div>
+            <div class="col-6 text-right" v-if="email">{{ email }}</div>
+            <div class="col-6 text-right" v-else> not configured </div>
           </div>
-          <div class="row mb-2">
-            <div class="col-6 text-left"><i class="bi bi-telephone pe-2"></i>Mobile</div>
-            <div class="col-6 text-right">{{ mobile_number }}</div>
-          </div>
-
-          <div class="row mb-2">
-            <div class="col-6 text-left"><i class="bi bi-translate pe-2"></i>Speaks</div>
-            <div class="col-6 text-right">
-              {{ Array.isArray(language) ? language.join(', ') : language }}
+          <div class="row mb-2" >
+            <div class="col-6 text-left"><i class="bi bi-telephone pe-2"></i>Phone</div>
+            <div class="col-6 text-right" v-if="phone">
+                {{ phone }}
+                <span v-if="phone_2">/ {{ phone_2 }}</span>
             </div>
+            <div class="col-6 text-right" v-else> not configured </div>
           </div>
-
           <div class="row mb-2">
             <div class="col-6 text-left"><i class="bi bi-calendar pe-2"></i>Joined</div>
-            <div class="col-6 text-right">{{ joined_date }}</div>
+            <div class="col-6 text-right"  v-if="created_at">{{ formatDate(created_at) }}</div>
+            <div class="col-6 text-right" v-else> not assigned </div>
           </div>
           <div class="row mb-2">
-            <div class="col-6 text-left"><i class="bi bi-geo-alt-fill pe-2"></i>Lives in</div>
-            <div class="col-6 text-right">{{ address?.city }}</div>
+            <div class="col-6 text-left"><i class="bi bi-geo-alt-fill pe-2"></i>City</div>
+            <div class="col-6 text-right" v-if="city">{{ city }}</div>
+            <div class="col-6 text-right" v-else> not configured </div>
           </div>
-
+          <div class="row mb-2">
+            <div class="col-6 text-left"><i class="bi bi-cash pe-2"></i>Base Currency</div>
+            <div class="col-6 text-right" v-if="currency">{{ currency }}</div>
+            <div class="col-6 text-right" v-else> not configured </div>
+          </div>
           <h6 class="text-center">{{ about_you }}</h6>
         </div>
 
         <hr class="horizontal dark" />
 
-        <h6 class="text-left gray-6">Host Confirmed Information</h6>
+        <h6 class="text-left gray-6">Business Profile Status</h6>
 
         <!-- Verification Section -->
         <div class="details mt-3 text-left">
@@ -86,27 +94,18 @@
 
 <script setup>
 import default_user from '@/src/assets/img/user-image/default_business2.png'
-
 const BASE_IMAGE_URL = import.meta.env.VITE_BASE_IMAGE_URL
-defineProps({
-  user_name: { type: String, required: true },
-  first_name: { type: String, required: true },
-  last_name: { type: String, required: true },
-  email: { type: String, required: true },
-  image: { type: String, required: true },
-  language: { type: String, required: true },
-  mobile_number: { type: String, required: true },
-  address: { type: String, required: true },
-  language: { type: String, required: true },
-  joined_date: { type: String, required: true },
-  unique_id: { type: String, required: true },
-  status: { type: String, required: true },
-  about_you: { type: String, required: true },
 
-  email_verified: { type: String, required: true },
-  id_verification_verfied: { type: String, required: true },
-  mobile_number_verfied: { type: String, required: true },
-})
+defineProps([ 'name', 'email', 'phone', 'phone_2', 'created_at', 'city', 'industry', 'slbfe_reg_code', 'currency'])
+
+const formatDate = (date) => {
+  const options = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  };
+  return new Date(date).toLocaleString('en-US', options);
+};
 </script>
 
 <style scoped>

@@ -30,7 +30,7 @@
                             </div>
                         </div>
                     </div>
-                    <ProfileDetailCard v-bind="hostData" class="mt-4 mt-md-0" />
+                    <ProfileDetailCard v-bind="businessData" class="mt-4 mt-md-0" />
                 </div>
             </template>
             <template #modals>
@@ -54,8 +54,9 @@ import basicProfile from '../Profile/components/basic-profile/basicProfile.vue';
 import identityCard from '../Profile/components/identity-cards/identityCard.vue';
 import passwordReset from '../Profile/components/password-reset/passwordReset.vue';
 import accountDeletion from '../Profile/components/account-deletion/accountDeletion.vue';
+import axios from 'axios';
 
-const hostData = ref({});
+const businessData = ref({});
 const isLoading = ref(false);
 const emit = defineEmits(['clear-validation']);
 
@@ -67,8 +68,22 @@ const tabs = [
     { id: 'account-tab', label: 'Account Deletion', target: '#account', active: false, class: 'text-danger' },
 ];
 
+
+const getBusinessProfileData = async () => {
+    isLoading.value = true;
+    try {
+        const response = await axios.get(route('business.all'));
+        businessData.value = response.data;
+        isLoading.value = false;
+        console.log('data', businessData.value);
+    } catch (error) {
+        console.log('Error fetching business data:', error);
+        isLoading.value = false;
+    }
+};
+
 onMounted(() => {
-    // Fetch host data if necessary
+    getBusinessProfileData()
 });
 </script>
 
