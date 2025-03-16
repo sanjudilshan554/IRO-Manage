@@ -9,7 +9,7 @@
 
         <div class="row">
             <section class="space-y-6">
-                <DeleteButton @click="confirmUserDeletion" :title="`Delete Account`"/>
+                <DeleteButton @click="confirmUserDeletion" :title="`Delete Account`" />
 
                 <Modal :show="confirmingUserDeletion" @close="closeModal">
                     <div class="p-6">
@@ -33,41 +33,40 @@
                         </div>
 
                         <div class="mt-6 flex justify-end">
-                            <CancelButton @click="closeModal" :title="`Cancel`"/>
+                            <CancelButton @click="closeModal" :title="`Cancel`" />
 
-                            <DeleteButton class="ms-3" :disabled="userForm.processing" @click="deleteUser" :title="'Delete Account'" />
+                            <DeleteButton class="ms-3" :disabled="userForm.processing" @click="deleteUser"
+                                :title="'Delete Account'" />
                         </div>
                     </div>
                 </Modal>
             </section>
         </div>
     </div>
+
+    <dataSavedAlert v-if="alertMessage" :alertTitle="alertMessage" />
 </template>
 
 <script setup>
 import { ref, nextTick } from "vue";
 import { useForm } from "@inertiajs/vue3";
-import DangerButton from '@/Components/DangerButton.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import Modal from '@/Components/Modal.vue';
 import TextInput from '@/Components/TextInput.vue';
-import DeleteButton from '@/Components/common/buttons/DeleteButton.vue'
-import CancelButton from '@/Components/common/buttons/CancelButton.vue'
+import DeleteButton from '@/Components/common/buttons/DeleteButton.vue';
+import CancelButton from '@/Components/common/buttons/CancelButton.vue';
 
-// Define reactive variables
 const confirmingUserDeletion = ref(false);
 const passwordInput = ref(null);
+const alertMessage = ref(null);
 
-// Define form for user deletion
 const userForm = useForm({
     password: '',
 });
 
-// Function to open the confirmation modal
 const confirmUserDeletion = () => {
     confirmingUserDeletion.value = true;
-
     nextTick(() => {
         if (passwordInput.value) {
             passwordInput.value.focus();
@@ -75,11 +74,13 @@ const confirmUserDeletion = () => {
     });
 };
 
-// Function to delete the user
 const deleteUser = () => {
     userForm.delete(route('profile.destroy'), {
         preserveScroll: true,
-        onSuccess: () => closeModal(),
+        onSuccess: () => {
+            alertMessage.value = "Account deleted successfully";
+            closeModal();
+        },
         onError: () => {
             if (passwordInput.value) {
                 passwordInput.value.focus();
@@ -89,12 +90,10 @@ const deleteUser = () => {
     });
 };
 
-// Function to close the modal
 const closeModal = () => {
     confirmingUserDeletion.value = false;
     userForm.clearErrors();
     userForm.reset();
 };
-
 
 </script>
