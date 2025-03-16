@@ -8,11 +8,8 @@
                     <button type="button" class="btn-close btn-close-dark" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 </div>
-                <div class="modal-body">{{ content }}</div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <component :is="formComponent" :deleteId="deleteId" />
-                </div>
+                <!-- <div class="modal-body">{{ content }}</div> -->
+                <DeleteAccountForm/>
             </div>
         </div>
     </div>
@@ -20,7 +17,7 @@
 
 <script setup>
 import { ref, defineProps, watchEffect, defineEmits } from 'vue'
-
+import DeleteAccountForm from '@/Components/forms/profile/DeleteAccountForm.vue'
 const formComponent = ref(null)
 
 const props = defineProps({
@@ -39,11 +36,9 @@ watchEffect(() => {
 <style scoped>
 .modal {
     z-index: 1050 !important;
-    /* Higher than Bootstrap default (1050) */
 }
 
 .modal-backdrop {
     z-index: 1050 !important;
-    /* Ensure backdrop is behind the modal */
 }
 </style>

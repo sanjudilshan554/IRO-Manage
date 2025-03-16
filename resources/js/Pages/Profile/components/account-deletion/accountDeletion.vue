@@ -9,45 +9,12 @@
 
         <div class="row">
             <section class="space-y-6">
-                <!-- <DeleteButton @click="confirmUserDeletion" :title="`Delete Account`" /> -->
-                <DeleteAccountButton @click="closeModal" :title="`Delete Account`" />
-                <Modal :show="confirmingUserDeletion" @close="closeModal">
-                    <div class="p-6">
-                        <h2 class="text-lg font-medium text-gray-900">
-                            Are you sure you want to delete your account?
-                        </h2>
-
-                        <p class="mt-1 text-sm text-gray-600">
-                            Once your account is deleted, all of its resources and data
-                            will be permanently deleted. Please enter your password to
-                            confirm you would like to permanently delete your account.
-                        </p>
-
-                        <div class="mt-6">
-                            <InputLabel for="password" value="Password" class="sr-only" />
-
-                            <TextInput id="password" ref="passwordInput" v-model="userForm.password" type="password"
-                                class="mt-1 block w-3/4" placeholder="Password" @keyup.enter="deleteUser" />
-
-                            <InputError :message="userForm.errors.password" class="mt-2" />
-                        </div>
-
-                        <div class="mt-6 flex justify-end">
-                            <CancelButton @click="closeModal" :title="`Cancel`" />
-
-                            <DeleteButton class="ms-3" :disabled="userForm.processing" @click="deleteUser"
-                                :title="'Delete Account'" />
-                        </div>
-                    </div>
-                </Modal>
+                <button @click="showModal" type="button" class="btn btn-danger">Delete Account</button>
             </section>
         </div>
     </div>
-
-
-
-    <AccountDeleteModal ref="accountDeleteModal" :title="deleteModal.title"
-        :content="deleteModal.content" :formType="'host'" @create-host="handleDeleteType" />
+    <AccountDeleteModal ref="accountDeleteModal" :title="deleteModal.title" :content="deleteModal.content"
+        :formType="'host'" @create-host="handleDeleteType" />
 
     <Loader :isLoading="isLoading" />
 
@@ -57,21 +24,14 @@
 <script setup>
 import { ref, nextTick } from "vue";
 import { useForm } from "@inertiajs/vue3";
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import Modal from '@/Components/Modal.vue';
-import TextInput from '@/Components/TextInput.vue';
-import DeleteButton from '@/Components/common/buttons/DeleteButton.vue';
-import CancelButton from '@/Components/common/buttons/CancelButton.vue';
 import Loader from '@/Components/main/Loader.vue';
 import dataSavedAlert from '@/Components/alerts/dataSaveAlert.vue'
 import AccountDeleteModal from '@/Components/common/modals/AccountDeleteModal.vue'
-import DeleteAccountButton from "@/Components/common/buttons/DeleteAccountButton.vue";
 
 const confirmingUserDeletion = ref(false);
 const passwordInput = ref(null);
 const alertMessage = ref(null);
-const isLoading = ref(false) 
+const isLoading = ref(false)
 const userForm = useForm({
     password: '',
 });
@@ -87,7 +47,7 @@ const confirmUserDeletion = () => {
 
 const deleteModal = {
     title: '🛑 Delete Account ',
-    content: '⚠️ Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.',
+    content: 'Please enter your password to confirm you would like to permanently delete your account.',
 }
 
 
@@ -110,10 +70,13 @@ const deleteUser = () => {
     });
 };
 
-const closeModal = () => {
-    confirmingUserDeletion.value = false;
-    userForm.clearErrors();
-    userForm.reset();
-};
+import { Modal } from "bootstrap";
 
+const showModal = () => {
+    const modalElement = document.getElementById("AccountDeleteModal");
+    if (modalElement) {
+        const modalInstance = Modal.getInstance(modalElement) || new Modal(modalElement);
+        modalInstance.show();
+    }
+};
 </script>
