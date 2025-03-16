@@ -47,12 +47,23 @@
             </div>
         </div>
     </div>
+
+    <Loader :isLoading="isLoading" />
+
+    <dataSavedAlert v-if="alertMessage" :alertTitle="alertMessage" />
+
 </template>
 
 <script setup>
-
+import { ref } from 'vue';
 import axios from "axios";
 import { Link, useForm, usePage } from "@inertiajs/vue3";
+import Loader from '@/Components/main/Loader.vue';
+import dataSavedAlert from '@/Components/alerts/dataSaveAlert.vue'
+
+const isLoading = ref(false)
+const alertMessage = ref(null);
+
 
 defineProps({
     mustVerifyEmail: {
@@ -71,9 +82,13 @@ const form = useForm({
 });
 
 const updateProfile = async () => {
+    isLoading.value = true;
     try {
-        const response = await axios.patch('http://127.0.0.1:8000/profile', form);
+        await axios.post(route('profile.update'), form);
+        alertMessage.value = "Basic Profile update successfully";
+        isLoading.value = false;
     } catch (error) {
+        isLoading.value = false;
         console.log('Error updating profile:', error.response?.data || error);
     }
 }

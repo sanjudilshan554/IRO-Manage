@@ -44,6 +44,8 @@
         </div>
     </div>
 
+    <Loader :isLoading="isLoading" />
+
     <dataSavedAlert v-if="alertMessage" :alertTitle="alertMessage" />
 </template>
 
@@ -56,10 +58,13 @@ import Modal from '@/Components/Modal.vue';
 import TextInput from '@/Components/TextInput.vue';
 import DeleteButton from '@/Components/common/buttons/DeleteButton.vue';
 import CancelButton from '@/Components/common/buttons/CancelButton.vue';
+import Loader from '@/Components/main/Loader.vue';
+import dataSavedAlert from '@/Components/alerts/dataSaveAlert.vue'
 
 const confirmingUserDeletion = ref(false);
 const passwordInput = ref(null);
 const alertMessage = ref(null);
+const isLoading = ref(false)
 
 const userForm = useForm({
     password: '',
@@ -75,13 +80,16 @@ const confirmUserDeletion = () => {
 };
 
 const deleteUser = () => {
+    isLoading.value = true;
     userForm.delete(route('profile.destroy'), {
         preserveScroll: true,
         onSuccess: () => {
+            isLoading.value = false;
             alertMessage.value = "Account deleted successfully";
             closeModal();
         },
         onError: () => {
+            isLoading.value = false;
             if (passwordInput.value) {
                 passwordInput.value.focus();
             }
