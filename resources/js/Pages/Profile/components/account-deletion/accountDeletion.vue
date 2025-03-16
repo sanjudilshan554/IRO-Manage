@@ -9,8 +9,8 @@
 
         <div class="row">
             <section class="space-y-6">
-                <DeleteButton @click="confirmUserDeletion" :title="`Delete Account`" />
-
+                <!-- <DeleteButton @click="confirmUserDeletion" :title="`Delete Account`" /> -->
+                <DeleteAccountButton @click="closeModal" :title="`Delete Account`" />
                 <Modal :show="confirmingUserDeletion" @close="closeModal">
                     <div class="p-6">
                         <h2 class="text-lg font-medium text-gray-900">
@@ -44,6 +44,11 @@
         </div>
     </div>
 
+
+
+    <AccountDeleteModal ref="accountDeleteModal" :title="deleteModal.title"
+        :content="deleteModal.content" :formType="'host'" @create-host="handleDeleteType" />
+
     <Loader :isLoading="isLoading" />
 
     <dataSavedAlert v-if="alertMessage" :alertTitle="alertMessage" />
@@ -60,12 +65,13 @@ import DeleteButton from '@/Components/common/buttons/DeleteButton.vue';
 import CancelButton from '@/Components/common/buttons/CancelButton.vue';
 import Loader from '@/Components/main/Loader.vue';
 import dataSavedAlert from '@/Components/alerts/dataSaveAlert.vue'
+import AccountDeleteModal from '@/Components/common/modals/AccountDeleteModal.vue'
+import DeleteAccountButton from "@/Components/common/buttons/DeleteAccountButton.vue";
 
 const confirmingUserDeletion = ref(false);
 const passwordInput = ref(null);
 const alertMessage = ref(null);
-const isLoading = ref(false)
-
+const isLoading = ref(false) 
 const userForm = useForm({
     password: '',
 });
@@ -78,6 +84,12 @@ const confirmUserDeletion = () => {
         }
     });
 };
+
+const deleteModal = {
+    title: '🛑 Delete Account ',
+    content: '⚠️ Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.',
+}
+
 
 const deleteUser = () => {
     isLoading.value = true;

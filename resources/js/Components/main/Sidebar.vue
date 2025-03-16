@@ -141,4 +141,8 @@ const isCompanyActive = () => {
     background-color: rgb(234, 241, 255);
     border-radius: 10px;
 }
+
+.sidebar {
+    z-index: 1040;
+}
 </style>

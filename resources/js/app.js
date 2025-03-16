@@ -8,6 +8,7 @@ const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 import './../../public/scss/main.scss'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import 'bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 import '../../public/js/core/popper.min.js'
 import '../../public/js/plugins/perfect-scrollbar.min.js'
