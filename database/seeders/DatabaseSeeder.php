@@ -21,8 +21,8 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call([
-            CurrenciesSeeder::class,
-            CountriesSeeder::class,
+            // CurrenciesSeeder::class,
+            // CountriesSeeder::class,
             AdminSeeder::class
         ]);
     }
