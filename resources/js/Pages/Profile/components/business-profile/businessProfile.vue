@@ -127,6 +127,8 @@
 
     <Loader :isLoading="isLoading" />
 
+    <dataSavedAlert v-if="alertMessage" :alertTitle="alertMessage" />
+
 </template>
 
 <script setup>
@@ -137,10 +139,12 @@ import SaveButton from "@/Components/common/buttons/SaveButton.vue";
 import CreateButton from "@/Components/common/buttons/CreateButton.vue";
 import Multiselect from "vue-multiselect";
 import Loader from '@/Components/main/Loader.vue';
+import dataSavedAlert from '@/Components/alerts/dataSaveAlert.vue'
 
 const countryOptions = ref([]);
 const currencyOptions = ref([]);
 const isLoading = ref(false)
+const alertMessage = ref(null);
 
 const addCountry = (newCountry) => {
     countryOptions.value.push({ name: newCountry });
@@ -192,6 +196,7 @@ const submitBusinessProfileForm = async () => {
         const response = await axios.post("http://127.0.0.1:8000/business/store", businessForm);
         getBusinessProfileData();
         isLoading.value = false
+        alertMessage.value = 'Business profile updated successfully';
     } catch (error) {
         console.log("Error updating profile:", error.response?.data || error);
 
@@ -261,6 +266,10 @@ onMounted(() => {
     getAllCountries();
     getBusinessProfileData();
 });
+
+
+
+
 </script>
 
 
