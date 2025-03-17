@@ -6,19 +6,21 @@
                     <div class="col-md-8">
                         <div class="card">
                             <div class="card-header pb-0 d-flex align-items-center">
-                                <p class="mb-0">Business Profile</p>
+                                <p class="mb-0 fw-bold">System Profiles</p>
                             </div>
-                            <div class="card-body mt-4">
+                            <div class="card-body mt-2">
                                 <div class="tabs-container">
                                     <ul class="nav nav-tabs" id="profileTab" role="tablist">
-                                        <li v-for="tab in tabs" :key="tab.id" class="nav-item" role="presentation">
-                                            <button class="nav-link" :class="{ active: tab.active }" :id="tab.id"
+                                        <li v-for="tab in tabs" :key="tab.id" class="nav-item fw-bold" role="presentation">
+                                            <button class="nav-link"
+                                                :class="['nav-link', { active: tab.active }, tab.class]" :id="tab.id"
                                                 data-bs-toggle="tab" :data-bs-target="tab.target" type="button"
                                                 role="tab">
                                                 {{ tab.label }}
                                             </button>
                                         </li>
                                     </ul>
+
                                 </div>
                                 <div class="tab-content mt-3" id="profileTabContent">
                                     <businessProfile />

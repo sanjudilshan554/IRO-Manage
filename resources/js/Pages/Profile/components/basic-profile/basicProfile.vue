@@ -35,7 +35,7 @@
                     </div>
 
                     <div class="text-end mt-4">
-                        <Button :disabled="form.processing" class="btn btn-primary">Save</Button>
+                        <SaveButton :disabled="form.processing" :title="`Save`" />
                         <Transition enter-active-class="transition ease-in-out" enter-from-class="opacity-0"
                             leave-active-class="transition ease-in-out" leave-to-class="opacity-0">
                             <p v-if="form.recentlySuccessful" class="text-sm text-gray-600 mt-2">
@@ -60,6 +60,7 @@ import axios from "axios";
 import { Link, useForm, usePage } from "@inertiajs/vue3";
 import Loader from '@/Components/main/Loader.vue';
 import dataSavedAlert from '@/Components/alerts/dataSaveAlert.vue'
+import SaveButton from '@/Components/common/buttons/SaveButton.vue';
 
 const isLoading = ref(false)
 const alertMessage = ref(null);
