@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BusinessController;
+use App\Http\Controllers\BusinessDocumentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GeneralDataController;
 use App\Http\Controllers\ProfileController;
@@ -30,6 +31,12 @@ Route::prefix('/business')->group(function () {
     Route::get('/', [BusinessController::class, 'index'])->name('business.index');
     Route::post('/store', [BusinessController::class, 'store'])->name('business.store');
     Route::get('/all', [BusinessController::class, 'all'])->name('business.all');
+
+    Route::prefix('/documents')->group(function () {
+        Route::get('/get', [BusinessDocumentController::class, 'get'])->name('business.document.get');
+        Route::post('/store', [BusinessDocumentController::class, 'store'])->name('business.document.store');
+        Route::get('/all', [BusinessDocumentController::class, 'all'])->name('business.document.all');
+    });
 });
 
 Route::prefix('/dashboard')->group(function () {

@@ -31,7 +31,7 @@ const identityDocuments = ref([
     { label: "BR (Business Registration)", subLabel: "Business Registration Image", key: "br_image_url" },
     { label: "License (This year)", subLabel: "Current License Image", key: "license_image_url" },
     { label: "SLBFE Identity Card (Chairman's)", subLabel: "Front Image", key: "slbfe_front_image_url" },
-    { label: "", subLabel: "Back Image", key: "slbfe_back_image_url" }
+    { label: "SLBFE Identity Card (Chairman's)", subLabel: "Back Image", key: "slbfe_back_image_url" }
 ]);
 
 // Upload Image Function
@@ -43,7 +43,7 @@ const uploadImage = async (file, key) => {
     formData.append("type", key);
 
     try {
-        const response = await axios.post(route('identity.image.store'), formData, {
+        const response = await axios.post(route('business.document.store'), formData, {
             headers: { "Content-Type": "multipart/form-data" }
         });
 
