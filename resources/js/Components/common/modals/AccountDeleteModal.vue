@@ -18,6 +18,7 @@
 <script setup>
 import { ref, defineProps, watchEffect, defineEmits } from 'vue'
 import DeleteAccountForm from '@/Components/forms/profile/DeleteAccountForm.vue'
+import { Modal } from "bootstrap";
 const formComponent = ref(null)
 
 const props = defineProps({
@@ -40,5 +41,13 @@ watchEffect(() => {
 
 .modal-backdrop {
     z-index: 1050 !important;
+}
+
+/* .modal-backdrop.show {
+    opacity: var(--bs-backdrop-opacity) !important;
+} */
+
+.modal-backdrop.fade {
+    opacity: 0 !important;
 }
 </style>

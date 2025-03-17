@@ -41,9 +41,23 @@ class ProfileController extends Controller
     }
 
     /**
+     * Verify the user's account.
+     */
+    public function verify(Request $request)
+    {
+        $request->validate([
+            'password' => ['required', 'current_password'],
+        ]);
+
+        $user = $request->user();
+
+        return $user;
+    }
+
+    /**
      * Delete the user's account.
      */
-    public function destroy(Request $request): RedirectResponse
+    public function destroy(Request $request)
     {
         $request->validate([
             'password' => ['required', 'current_password'],
@@ -55,9 +69,9 @@ class ProfileController extends Controller
 
         $user->delete();
 
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+        // $request->session()->invalidate();
+        // $request->session()->regenerateToken();
 
-        return Redirect::to('/');
+        // return Redirect::to('/');
     }
 }
