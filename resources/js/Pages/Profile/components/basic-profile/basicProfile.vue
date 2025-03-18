@@ -1,20 +1,20 @@
 <template>
     <div class="tab-pane fade" id="basic" role="tabpanel">
         <h4>Basic Profile</h4>
-        <p>Manage your business details here.</p>
+        <p>Manage your system domains here.</p>
 
         <div class="row">
             <div class="col-md-6">
                 <form @submit.prevent="updateProfile">
                     <div class="mb-3">
-                        <InputLabel for="name" value="Name" />
+                        <label class="form-label">System username</label>
                         <input id="name" type="text" class="form-control" v-model="form.name" required autofocus
                             autocomplete="name" />
                         <InputError class="mt-2" :message="form.errors.name" />
                     </div>
 
                     <div class="mb-3">
-                        <InputLabel for="email" value="Email" />
+                        <label class="form-label">System email</label>
                         <input id="email" type="email" class="form-control" v-model="form.email" required
                             autocomplete="username" />
                         <InputError class="mt-2" :message="form.errors.email" />

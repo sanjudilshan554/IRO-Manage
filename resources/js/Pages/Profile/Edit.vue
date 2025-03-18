@@ -25,7 +25,7 @@
                                 <div class="tab-content mt-3" id="profileTabContent">
                                     <businessProfile />
                                     <basicProfile />
-                                    <identityCard />
+                                    <businessDocuments />
                                     <passwordReset />
                                     <accountDeletion />
                                 </div>
@@ -53,7 +53,7 @@ import Loader from '@/Components/main/Loader.vue';
 import ProfileDetailCard from '@/Components/cards/profile/ProfileDetailCard.vue';
 import businessProfile from '../Profile/components/business-profile/businessProfile.vue';
 import basicProfile from '../Profile/components/basic-profile/basicProfile.vue';
-import identityCard from '../Profile/components/identity-cards/identityCard.vue';
+import businessDocuments from './components/business-documents/businessDocuments.vue';
 import passwordReset from '../Profile/components/password-reset/passwordReset.vue';
 import accountDeletion from '../Profile/components/account-deletion/accountDeletion.vue';
 import axios from 'axios';
@@ -64,12 +64,11 @@ const emit = defineEmits(['clear-validation']);
 
 const tabs = [
     { id: 'business-tab', label: 'Business Profile', target: '#business', active: true },
+    { id: 'document-tab', label: 'Business Documents', target: '#document', active: false },
     { id: 'basic-tab', label: 'Basic Profile', target: '#basic', active: false },
-    { id: 'identity-tab', label: 'Identity Cards', target: '#identity', active: false },
     { id: 'password-tab', label: 'Password Reset', target: '#password', active: false },
     { id: 'account-tab', label: 'Account Deletion', target: '#account', active: false, class: 'text-danger' },
 ];
-
 
 const getBusinessProfileData = async () => {
     isLoading.value = true;
@@ -77,7 +76,6 @@ const getBusinessProfileData = async () => {
         const response = await axios.get(route('business.all'));
         businessData.value = response.data;
         isLoading.value = false;
-        console.log('data', businessData.value);
     } catch (error) {
         console.log('Error fetching business data:', error);
         isLoading.value = false;

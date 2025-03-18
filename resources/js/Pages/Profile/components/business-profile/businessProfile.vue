@@ -1,7 +1,7 @@
 <template>
     <div class="tab-pane fade show active" id="business" role="tabpanel">
         <h4>Business Profile</h4>
-        <p>Manage your personal details here.</p>
+        <p>Manage your business details here.</p>
 
         <div class="mt-4">
             <form @submit.prevent="submitBusinessProfileForm">

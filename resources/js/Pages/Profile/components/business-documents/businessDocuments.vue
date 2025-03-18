@@ -1,5 +1,5 @@
 <template>
-    <div class="tab-pane fade" id="identity" role="tabpanel">
+    <div class="tab-pane fade" id="document" role="tabpanel">
         <h4>Business Related Documents</h4>
         <p>Ensure the safety of your business documents with this section.</p>
         <div class="row ">
@@ -13,12 +13,24 @@
             </div>
         </div>
     </div>
+
+    <Loader :isLoading="isLoading" />
+
+    <dataSavedAlert v-if="alertMessage" :alertTitle="alertMessage" />
+
+    d {{ alertMessage }}d
+
 </template>
 
-<script setup> 
+<script setup>
 import { ref, onMounted } from "vue";
 import axios from "axios";
 import FileDropzone from "@/Components/drag-and-drop/FileDropzone.vue";
+import Loader from '@/Components/main/Loader.vue';
+import dataSavedAlert from '@/Components/alerts/dataSaveAlert.vue';
+
+const isLoading = ref(false)
+const alertMessage = ref(null);
 
 const businessDocumentsData = ref({
     document: {}
@@ -32,7 +44,12 @@ const identityDocuments = ref([
 ]);
 
 const uploadImage = async (file, key) => {
-    if (!file) return;
+    isLoading.value = true;
+    alertMessage.value = false;
+    if (!file) {
+        isLoading.value = false;
+        return;
+    }
 
     const formData = new FormData();
     formData.append("image", file);
@@ -42,13 +59,26 @@ const uploadImage = async (file, key) => {
         const response = await axios.post(route('business.document.store'), formData, {
             headers: { "Content-Type": "multipart/form-data" }
         });
+
+        if (response.data.title == 'br_image') {
+            alertMessage.value = "Business Registration uploaded successfully";
+        } else if (response.data.title == 'license_image') {
+            alertMessage.value = "License document uploaded successfully";
+        } else if (response.data.title == 'slbfe_front_image') {
+            alertMessage.value = "SLBFE Front document uploaded successfully";
+        } else if (response.data.title == 'slbfe_back_image') {
+            alertMessage.value = "SLBFE Back document uploaded successfully";
+        }
+
         getBusinessDocuments();
     } catch (error) {
         console.error(`Error uploading ${key}:`, error);
+        isLoading.value = false;
     }
 };
 
 const getBusinessDocuments = async () => {
+    isLoading.value = true;
     try {
         const response = await axios.get(route('business.documents.all'));
         const latest_documents = response.data;
@@ -56,9 +86,10 @@ const getBusinessDocuments = async () => {
         Object.entries(latest_documents).forEach(([key, value]) => {
             businessDocumentsData.value.document[key] = value;
         });
-
+        isLoading.value = false;
     } catch (error) {
         console.error("Error fetching business documents:", error);
+        isLoading.value = false;
     }
 };
 

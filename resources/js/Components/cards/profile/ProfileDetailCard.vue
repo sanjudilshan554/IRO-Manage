@@ -99,26 +99,38 @@
             </div>
         </div>
     </div>
+
+    <Loader :isLoading="isLoading" />
+
+    <dataSavedAlert v-if="alertMessage" :alertTitle="alertMessage" />
+
 </template>
 
 <script setup>
 import default_user from '@/src/assets/img/user-image/default_business2.png'
 import axios from "axios"
 import { defineProps, ref } from "vue";
+import Loader from '@/Components/main/Loader.vue';
+import dataSavedAlert from '@/Components/alerts/dataSaveAlert.vue'
 
-const logo = ref('');
 defineProps(['name', 'email', 'phone', 'phone_2', 'created_at', 'city', 'industry', 'slbfe_reg_code', 'currency', 'image'])
 
-const hover = ref(false)
 const fileInput = ref(null)
+const isLoading = ref(false)
+const alertMessage = ref(null);
+
 
 const triggerFileUpload = () => {
     fileInput.value.click()
 }
 
 const handleFileUpload = async (event) => {
+    isLoading.value = true;
     const file = event.target.files[0];
-    if (!file) return;
+    if (!file) {
+        isLoading.value = false;
+        return;
+    }
 
     const formData = new FormData();
     formData.append("logo", file);
@@ -127,9 +139,12 @@ const handleFileUpload = async (event) => {
         await axios.post(route('business.logo.store'), formData, {
             headers: { "Content-Type": "multipart/form-data" }
         });
+        alertMessage.value = "Business Logo updated successfully";
+        isLoading.value = false;
         window.location.reload();
     } catch (error) {
         console.error("Error uploading logo:", error);
+        isLoading.value = false;
     }
 };
 
