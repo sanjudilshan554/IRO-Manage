@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 
 use App\Facades\BusinessFacade\BusinessFacade;
+use App\Facades\ImageFacade\ImageFacade;
 use App\Http\Requests\BusinessRequests\CreateBusinessRequest;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class BusinessController extends Controller
@@ -40,5 +42,10 @@ class BusinessController extends Controller
     public function all()
     {
         return BusinessFacade::all();
+    }
+
+    public function updateProfileLogo(Request $request)
+    {
+        return BusinessFacade::updateProfileLogo($request->all());
     }
 }

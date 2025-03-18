@@ -2,6 +2,7 @@
 
 namespace App\Services\BusinessService;
 
+use App\Facades\ImageFacade\ImageFacade;
 use App\Models\Business;
 
 class BusinessService
@@ -53,5 +54,21 @@ class BusinessService
     {
         $businessProfile =  Business::first();
         return $businessProfile;
+    }
+
+    public function updateProfileLogo($logo)
+    {
+        $image = ImageFacade::store($logo->file('logo'));
+
+        $existBusinessProfile = Business::first();
+
+        $businessLogo = [
+            'logo' => $image['id']
+        ];
+
+        return Business::updateOrCreate(
+            ['id' => $existBusinessProfile->id ?? null],
+            $businessLogo
+        );
     }
 }

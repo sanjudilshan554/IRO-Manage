@@ -15,7 +15,7 @@
     </div>
 </template>
 
-<script setup>
+<script setup> 
 import { ref, onMounted } from "vue";
 import axios from "axios";
 import FileDropzone from "@/Components/drag-and-drop/FileDropzone.vue";

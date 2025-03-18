@@ -32,6 +32,12 @@ Route::prefix('/business')->group(function () {
     Route::post('/store', [BusinessController::class, 'store'])->name('business.store');
     Route::get('/all', [BusinessController::class, 'all'])->name('business.all');
 
+    Route::prefix('/logo')->group(function () {
+        Route::post('/store', [BusinessController::class, 'updateProfileLogo'])->name('business.logo.store');
+    });
+
+
+
     Route::prefix('/documents')->group(function () {
         Route::get('/get', [BusinessDocumentController::class, 'get'])->name('business.document.get');
         Route::post('/store', [BusinessDocumentController::class, 'store'])->name('business.document.store');
