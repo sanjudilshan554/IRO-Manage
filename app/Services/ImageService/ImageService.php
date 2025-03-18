@@ -15,12 +15,21 @@ class ImageService
         $this->image = new Image();
     }
 
+
+    /**
+     * Method store
+     *
+     * @param $image $image [explicite description]
+     *
+     * @return void
+     */
     public function store($image)
     {
         if (isset($image)) {
-             $path = $image->store('images', 's3');
-             $url = Storage::disk('s3')->url($path);
-             return $this->image->create(['path' => $url]);
+            $path = $image->storePublicly('/public/images');
+            $data['path'] = Storage::disk('s3')->url($path);
+            return $this->image->create($data);
+
         }
     }
 }

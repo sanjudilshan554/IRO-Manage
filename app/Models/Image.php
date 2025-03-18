@@ -9,4 +9,11 @@ class Image extends Model
     protected $fillable = [
         'path',
     ];
+
+    public function businessDocument()
+    {
+        return $this->hasOne(BusinessDocument::class);
+    }
 }
+
+

@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Facade;
 
 class ImageFacade extends Facade
 {
+    /**
+     * Method getFacadeAccessor
+     *
+     * @return void
+     */
     protected static function getFacadeAccessor()
     {
         return ImageService::class;

@@ -6,6 +6,13 @@ use App\Models\Business;
 
 class BusinessService
 {
+    /**
+     * Method store
+     *
+     * @param array $data [explicite description]
+     *
+     * @return void
+     */
     public function store(array $data)
     {
         $existBusinessProfile = Business::first();

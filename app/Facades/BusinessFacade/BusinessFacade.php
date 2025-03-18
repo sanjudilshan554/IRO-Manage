@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Facade;
 
 class BusinessFacade extends Facade
 {
+    /**
+     * Method getFacadeAccessor
+     *
+     * @return void
+     */
     protected static function getFacadeAccessor()
     {
         return BusinessService::class;

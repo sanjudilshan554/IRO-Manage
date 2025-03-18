@@ -35,14 +35,13 @@ Route::prefix('/business')->group(function () {
     Route::prefix('/documents')->group(function () {
         Route::get('/get', [BusinessDocumentController::class, 'get'])->name('business.document.get');
         Route::post('/store', [BusinessDocumentController::class, 'store'])->name('business.document.store');
-        Route::get('/all', [BusinessDocumentController::class, 'all'])->name('business.document.all');
+        Route::get('/all', [BusinessDocumentController::class, 'all'])->name('business.documents.all');
     });
 });
 
 Route::prefix('/dashboard')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 });
-
 
 Route::prefix('/general')->group(function () {
     Route::get('/all-countries', [GeneralDataController::class, 'allCountries'])->name('countries.all');
