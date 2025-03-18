@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Facades\BusinessFacade;
+
+use App\Facades\BusinessFacade\BusinessFacade;
 use App\Http\Requests\BusinessRequests\CreateBusinessRequest;
 use App\Models\Business;
 use Illuminate\Http\Request;
@@ -21,7 +22,8 @@ class BusinessController extends Controller
         return BusinessFacade::store($data);
     }
 
-    public function all(){
+    public function all()
+    {
         return BusinessFacade::all();
     }
 }

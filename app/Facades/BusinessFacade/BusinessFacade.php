@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Facades;
+namespace App\Facades\BusinessFacade;
 
-use App\Services\BusinessService;
+
+use App\Services\BusinessService\BusinessService;
 use Illuminate\Support\Facades\Facade;
 
 class BusinessFacade extends Facade
