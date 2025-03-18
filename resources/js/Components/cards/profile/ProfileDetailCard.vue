@@ -4,14 +4,18 @@
             <div class="row justify-content-center mt-4">
                 <div class="text-center col-4 col-lg-4 order-lg-2">
                     <div class="text-center  order-lg-2 position-relative">
-                        <div v-if="image && image !== 'storage/default/invalid.jpg'">
-                            <img :src="`${BASE_IMAGE_URL}${image}`"
-                                class="rounded-circle img-fluid border border-2 border-white" />
+                        <div class="image-container position-relative"
+                            v-if="image?.path && image?.path !== 'storage/default/invalid.jpg'"
+                            @click="triggerFileUpload">
+                            <img :src="image?.path" class="rounded-circle img-fluid border border-2 border-white" />
+                            <div class="pencil-overlay d-flex align-items-center justify-content-center">
+                                <i class="bi bi-pencil-fill"></i>
+                            </div>
+                            <input type="file" ref="fileInput" class="d-none" @change="handleFileUpload" />
                         </div>
 
                         <div class="image-container position-relative" v-else @click="triggerFileUpload">
                             <img :src="default_user" class="rounded-circle img-fluid border border-2 border-white" />
-                            <!-- Full overlay with pencil icon -->
                             <div class="pencil-overlay d-flex align-items-center justify-content-center">
                                 <i class="bi bi-pencil-fill"></i>
                             </div>
@@ -99,17 +103,15 @@
 
 <script setup>
 import default_user from '@/src/assets/img/user-image/default_business2.png'
-const BASE_IMAGE_URL = import.meta.env.VITE_BASE_IMAGE_URL
 import axios from "axios"
 import { defineProps, ref } from "vue";
 
 const logo = ref('');
-defineProps(['name', 'email', 'phone', 'phone_2', 'created_at', 'city', 'industry', 'slbfe_reg_code', 'currency'])
+defineProps(['name', 'email', 'phone', 'phone_2', 'created_at', 'city', 'industry', 'slbfe_reg_code', 'currency', 'image'])
 
 const hover = ref(false)
 const fileInput = ref(null)
 
-// Trigger file input when clicking on the pencil icon
 const triggerFileUpload = () => {
     fileInput.value.click()
 }
@@ -125,8 +127,7 @@ const handleFileUpload = async (event) => {
         await axios.post(route('business.logo.store'), formData, {
             headers: { "Content-Type": "multipart/form-data" }
         });
-        // Reload or update the image prop
-        // window.location.reload(); // Simple reload, or fetch updated image
+        window.location.reload();
     } catch (error) {
         console.error("Error uploading logo:", error);
     }
@@ -139,22 +140,6 @@ const formatDate = (date) => {
         day: 'numeric',
     };
     return new Date(date).toLocaleString('en-US', options);
-};
-
-const uploadImage = async (file, key) => {
-    if (!file) return;
-
-    const formData = new FormData();
-    formData.append("logo", logo);
-
-    try {
-        const response = await axios.post(route('business.logo.store'), formData, {
-            headers: { "Content-Type": "multipart/form-data" }
-        });
-        getBusinessDocuments();
-    } catch (error) {
-        console.error(`Error uploading ${key}:`, error);
-    }
 };
 
 </script>
@@ -176,7 +161,6 @@ const uploadImage = async (file, key) => {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.4);
-    /* Transparent black */
     border-radius: 50%;
     opacity: 0;
     transition: opacity 0.3s;
@@ -186,5 +170,33 @@ const uploadImage = async (file, key) => {
 
 .image-container:hover .pencil-overlay {
     opacity: 1;
+}
+
+.card-profile {
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+.image-container {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    box-shadow: 1px 5px 5px rgb(201, 198, 198);
+    background-color: #f0f0f0;
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.pencil-overlay i {
+    color: #fff;
 }
 </style>

@@ -35,4 +35,9 @@ class Business extends Model
     protected $casts = [
         'dispatch_countries' => 'array',
     ];
+
+    public function image()
+    {
+        return $this->belongsTo(Image::class, 'logo');
+    }
 }

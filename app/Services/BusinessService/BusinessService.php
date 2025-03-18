@@ -38,7 +38,7 @@ class BusinessService
             'currency' => $data['currency'],
             'bank_account_details' => $data['bank_account_details'],
             'category' => $data['category'] ?? null,
-            'logo' => $data['logo'],
+            'data' => $data['data'],
             'notes' => $data['notes'],
             'created_by' => $data['created_by'],
             'updated_by' => $data['updated_by'],
@@ -52,13 +52,13 @@ class BusinessService
 
     public function all()
     {
-        $businessProfile =  Business::first();
+        $businessProfile =  Business::with('image')->first();
         return $businessProfile;
     }
 
-    public function updateProfileLogo($logo)
+    public function updateProfileLogo($data)
     {
-        $image = ImageFacade::store($logo->file('logo'));
+        $image = ImageFacade::store($data['logo']);
 
         $existBusinessProfile = Business::first();
 

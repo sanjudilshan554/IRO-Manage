@@ -65,7 +65,6 @@ import SaveButton from '@/Components/common/buttons/SaveButton.vue';
 const isLoading = ref(false)
 const alertMessage = ref(null);
 
-
 defineProps({
     mustVerifyEmail: {
         type: Boolean,

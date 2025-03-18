@@ -15,14 +15,6 @@ class ImageService
         $this->image = new Image();
     }
 
-
-    /**
-     * Method store
-     *
-     * @param $image $image [explicite description]
-     *
-     * @return void
-     */
     public function store($image)
     {
         if (isset($image)) {

@@ -14,6 +14,11 @@ class Image extends Model
     {
         return $this->hasOne(BusinessDocument::class);
     }
+
+    public function business()
+    {
+        return $this->hasOne(Business::class);
+    }
 }
 
 
