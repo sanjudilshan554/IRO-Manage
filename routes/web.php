@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GeneralDataController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -17,6 +18,16 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+
+// Route::get('/test-mongodb-connection', function () {
+//     $msg = 'MongoDB connection is successful.';
+//     try {
+//         DB::connection('mongodb')->command(['ping' => 1]);
+//     } catch (Exception $e) {
+//         $msg = 'MongoDB connection failed: ' . $e->getMessage();
+//     }
+//     return $msg;
+// });
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
