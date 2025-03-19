@@ -46,5 +46,4 @@ const showModal = () => {
     }
 };
 
-
 </script>
