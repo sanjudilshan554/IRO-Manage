@@ -18,8 +18,6 @@
 
     <dataSavedAlert v-if="alertMessage" :alertTitle="alertMessage" />
 
-    d {{ alertMessage }}d
-
 </template>
 
 <script setup>

@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             // CurrenciesSeeder::class,
             // CountriesSeeder::class,
-            AdminSeeder::class
+            // AdminSeeder::class
         ]);
     }
 }
